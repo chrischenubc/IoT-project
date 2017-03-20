@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DDDDDD"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LayoutHolder">
+        android:id="@+id/LayoutHolder"
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:gravity="center"
+            android:background="#DDDDDDD"
+            android:id="@+id/TopSection">
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/leaves"
+                android:id="@+id/imageView2"
+                android:background="#FFFFFF" />
+
+            <TextView
+                android:text="CPEN291 G5"
+                android:layout_width="159dp"
+                android:layout_height="62dp"
+                android:id="@+id/textView3"
+                android:textSize="24sp"
+                android:textColor="@android:color/background_dark"
+                android:textColorHighlight="@color/colorPrimary"
+                android:background="#FFFFFF"
+                android:gravity="center" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:id="@+id/imageButton13"
+                android:layout_weight="1"
+                android:background="#FFFFFF" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:weightSum="1"
+        android:id="@+id/MiddleSection"
+        android:background="#663300"
+        android:layout_weight="0.07">
+
+        <TextView
+            android:text="Start"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:textSize="50sp"
+            android:textColor="#FFFFFF" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            app:srcCompat="@android:drawable/ic_btn_speak_now"
+            android:id="@+id/microphone"
+            android:layout_weight="0.14"
+            android:background="#00000000"
+                android:src="@android:drawable/ic_btn_speak_now" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@android:drawable/ic_lock_power_off"
+                android:id="@+id/switch"
+                android:layout_weight="0.14"
+                android:background="#00000000"
+                android:src="@android:drawable/ic_lock_power_off" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/checkbox_off_background"
+                android:id="@+id/imageButton5"
+                android:layout_weight="0.14"
+                android:background="#00000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/Control Panel"
+                android:layout_weight="1"
+                android:text="Control Panel"
+                android:textColor="#FFFFFF"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <EditText
+                android:layout_width="131dp"
+                android:layout_height="70dp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/Project_Introduction"
+                android:text="Project Introuduction"
+                android:textColor="#FFFFFF"
+                android:line="2"
+                android:maxLines="3"
+                android:gravity="center_vertical|center_horizontal"
+                android:contextClickable="false" />
+
+            <EditText
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/Portfolio"
+                android:text="Portfolio"
+                android:textColor="#FFFFFF"
+                android:gravity="center_vertical|center_horizontal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.09">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:gravity="left">
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="59dp"
+                app:srcCompat="@android:drawable/ic_menu_info_details"
+                android:id="@+id/imageView4" />
+
+            <EditText
+                android:layout_width="151dp"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:text="SDFWEFWE"
+                android:ems="10"
+                android:id="@+id/editText3" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
