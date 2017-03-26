@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>socket.io client</title>
+	<!-- <script src="http://localhost:8080/socket.io/socket.io.js"></script> -->
+	 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+</head>
+<body>
+	<input type="text" name="input text" id="textID">
+	<button>Send hello</button>
+
+	<div id="log"</ div>
+
+	<script>
+		var sock;
+		sock=io.connect("ws://38.88.74.87：9000");
+		console.log('socket connected');
+
+		sock.on('chat message',function(msg) {
+			console.log("print someting");
+			console.log(msg);
+			log.innerHTML+=msg+"</br>";
+		});
+
+		document.querySelector('button').onclick=function () {
+			//sock.send("Hey there, my name is chris");
+			// body...
+			var text=document.getElementById('textID').value;
+			console.log('I send '+text);
+			sock.send(text);
+		}
+	</script>
+</body>
+</html>
