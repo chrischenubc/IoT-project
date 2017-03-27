@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Node Socket</title>
+    
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script>
+      //var socket = io.connect("ws://38.88.74.87:9000");
+	    var socket = io.connect("http://localhost:3000");
+		function requestUpdate(data) {
+			socket.emit('request', 'requested');
+		}
+		
+		//setInterval(requestUpdate, 1000);
+		
+		
+		
+		</script>
+</head>
+<body>
+
+<h1>Temperature:</h1>
+<p id="temp">NULL</p>
+
+<h1>Humidity:</h1>
+<p id="humidity">NULL</p>
+
+<h1>Photosensor:</h1>
+<p id="lightlevel">NULL</p>
+
+<button id="led">LED on/off</button>
+<button id="piezo">Alarm</button>
+
+<script>
+		socket.on('temp', function(data) {
+			//var splitString = data.split(/[ ,]+/);
+			//document.getElementById("temp").innerHTML=splitString[0];
+			//document.getElementById("humidity").innerHTML=splitString[1];
+			//document.getElementById("lightlevel").innerHTML=splitString[2];
+			
+			document.getElementById("temp").innerHTML=data;
+		});
+		
+		document.getElementById("led").onclick = function() {
+			socket.emit('led', 'led on/off');
+		}
+		document.getElementById("piezo").onclick = function() {
+			socket.emit('piezo', 'piezo on/off');
+		}
+</script>
+
+</body>
+</html>

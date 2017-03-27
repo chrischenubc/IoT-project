@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="webwocket.js"></script>
+<title>Prototype Realtime Value</title>
+</head>
+<body>
+
+<h1>Temperature:</h1>
+<p id="temp">NULL</p>
+
+<h1>Humidity:</h1>
+<p id="humidity">NULL</p>
+
+<h1>Photosensor:</h1>
+<p id="lightlevel">NULL</p>
+
+<script> 
+//var socket = io();
+//var address = ('128.189.203.114', 3000);
+//var s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
+//s.connect(address);
+
+var sock =new WebSocket("ws://128.189.203.114:3000");
+
+sock.send('getTemp');
+
+
+</script>
+
+</body>
+</html>
