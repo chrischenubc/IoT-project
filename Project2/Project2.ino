@@ -44,12 +44,15 @@ void setup() {
   myServo.attach(MOTOR_PIN);
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
+
+  doorClose();
 }
 
 /**
  * Read the switch status, and decide which style of display it shall follow
  */
 void loop() {
+  
   checkBluetoothSerial();
   
   TmpLM=readTmpLM();
@@ -68,7 +71,6 @@ void loop() {
   delay(200);
   BT.print(addOneToLeft(humidity, "4"));
   delay(200);
-  
 }
 
 void checkBluetoothSerial() {
@@ -97,7 +99,7 @@ void checkBluetoothSerial() {
       alarmOn();
     } else if(dataSerial == 'B') {
       alarmOff();
-    }
+    } 
   }
 }
 
@@ -112,22 +114,22 @@ void alarmOff() {
 }
 
 void doorOpen() {
-  myServo.write(90);
+  myServo.write(0);
   servo_status = 1;
 }
 
 void doorClose() {
-  myServo.write(0);
+  myServo.write(90);
   servo_status = 0;
 }
 
 void ServoOnOff() {
   if(servo_status == 0){
-    myServo.write(90);
+    myServo.write(0);
     servo_status = 1;
   }
   else {
-    myServo.write(0);
+    myServo.write(90);
     servo_status = 0;
   }
 }
