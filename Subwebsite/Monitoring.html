@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Dashboard - Bootstrap Admin</title>
+    <title>Monitoring</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -29,13 +29,12 @@
 <!-- for socket.io -->
 
 <meta charset="UTF-8">
-    <title>Node Socket</title>
+    <title>Monitoring</title>
 
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      //var socket = io.connect("ws://38.88.74.87:9000");
-		var socket = io.connect("http://localhost:8080");
+      var socket = io.connect("ws://38.88.74.87:9000");
+		//var socket = io.connect("http://localhost:3000");
 		function requestUpdate(data) {
 			socket.emit('request', 'requested');
 		}
@@ -45,36 +44,7 @@
 
 
 		</script>
-
-<style type="text/css">
-	div#log_chat {
-    width: 830px;
-    height: 150px;
-    margin: 0 auto;
-    border: 1px solid gray;
-    border-radius: 7px;
-}
-</style>
-
-<style type="text/css">
-	div#log_chat_arduino {
-    width: 830px;
-    height: 150px;
-    margin: 0 auto;
-    border: 1px solid gray;
-    border-radius: 7px;
-}
-</style>
-
-
-
-
-
   </head>
-
-
-
-
 
 <body>
 
@@ -90,21 +60,21 @@
 				<span class="icon-bar"></span>
 			</a>
 
-			<a class="brand" href="./">Control Panel</a>
+			<a class="brand" href="./../index.html">Home</a>
 
 			<div class="nav-collapse">
 
 				<ul class="nav pull-right">
-					<li>
+					<!-- <li>
 						<a href="#"><span class="badge badge-warning">7</span></a>
-					</li>
+					</li> -->
 
 					<li class="divider-vertical"></li>
 
 					<li class="dropdown">
 
 						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
-							Rod Howard <b class="caret"></b>
+							G5 <b class="caret"></b>
 						</a>
 
 						<ul class="dropdown-menu">
@@ -145,7 +115,7 @@
 				<div class="account-container">
 
 					<div class="account-avatar">
-						<img src="./img/headshot.png" alt="" class="thumbnail" />
+						<img src="./img/vs.jpg" alt="" class="thumbnail" />
 					</div> <!-- /account-avatar -->
 
 					<div class="account-details">
@@ -168,17 +138,17 @@
 
 				<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-					<li >
-						<a href="./">
+					<li class="active">
+						<a href="./Monitoring.html">
 							<i class="icon-home"></i>
 							Monitoring
 						</a>
 					</li>
 
 					<li>
-						<a href="./faq.html">
+						<a href="http://128.189.84.138:3000" target="_blank">
 							<i class="icon-pushpin"></i>
-							FAQ
+							Camera
 						</a>
 					</li>
 
@@ -190,8 +160,8 @@
 						</a>
 					</li> -->
 
-					<li class="active">
-						<a href="./charts.html">
+					<li>
+						<a href="./chatRoom.html">
 							<i class="icon-signal"></i>
 							ChatRoom
 						</a>
@@ -228,43 +198,62 @@
 			<div class="span9">
 
 				<h1 class="page-title">
-					<i class="icon-signal"></i>
-					Chatroom
+					<i class="icon-home"></i>
+					Monitoring
 				</h1>
 
+				<div class="stat-container">
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="temp">NULL</span>
+							Temperature
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="humidity">NULL</span>
+							Humidity
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="lightlevel">NULL</span>
+							Photosensor
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="distance">NULL</span>
+							Ultrasonic
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+
+
+				</div> <!-- /stat-container -->
+
 				<div class="widget">
 
 					<div class="widget-header">
 						<i class="icon-signal"></i>
-						<h3>Chat</h3>
+						<h3>Control</h3>
 					</div> <!-- /widget-header -->
 
 					<div class="widget-content">
-						<div id="log_chat" style="overflow: scroll"></div>
-
-						<div id="send-contrl-chat" >
-							<input type="text" placeholder="Your message here", id="text-chat" style="height: 18px;margin: 10px auto;">
-							<button id="send-chat" style="height: 27px">Send message</button>
+						<div id="bar-chart" >
+							<button id="led">LED on/off</button>
 						</div>
-
-
-					</div> <!-- /widget-content -->
-
-				</div> <!-- /widget -->
-
-				<div class="widget">
-
-					<div class="widget-header">
-						<i class="icon-signal"></i>
-						<h3>Communicate with Arduio</h3>
-					</div> <!-- /widget-header -->
-
-					<div class="widget-content">
-						<div id="log_chat_arduino" style="overflow: scroll"></div>
-
-						<div id="send-contrl-chat" >
-							<input type="text" placeholder="Your message here", id="text-chat-arduino" style="height: 18px;margin: 10px auto; overflow: scroll">
-							<button id="send-chat-arduino" style="height: 27px">Send to LCD</button>
+						<div id="bar-chart" >
+							<button id="piezo" style="
+    left: 150px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+">Alarm</button>
 						</div>
 
 					</div> <!-- /widget-content -->
@@ -291,34 +280,25 @@
 
 
 <script>
-		socket.on('message',function(msg) {
-			console.log(msg);
-			//log_chat.innerHTML+=msg+"</br>";
-      $('#log_chat').append($('<li>').text(msg));
+		socket.on('temp', function(data) {
+			document.getElementById("temp").innerHTML=data;
+		});
+		socket.on('light', function(data) {
+			document.getElementById("lightlevel").innerHTML=data;
+		});
+		socket.on('humidity', function(data) {
+			document.getElementById("humidity").innerHTML=data;
+		});
+		socket.on('distance', function(data) {
+			document.getElementById("distance").innerHTML=data;
 		});
 
-		document.getElementById('send-chat').onclick=function () {
-			//sock.send("Hey there, my name is chris");
-			// body...
-			var text=document.getElementById('text-chat').value;
-			console.log('I send '+text);
-			socket.send(text);
+		document.getElementById("led").onclick = function() {
+			socket.emit('led', 'led on/off');
 		}
-
-		socket.on('chat message to arduino',function(msg) {
-			console.log(msg);
-			log_chat_arduino.innerHTML+=msg+"</br>";
-		});
-
-		document.getElementById('send-chat-arduino').onclick=function () {
-			//sock.send("Hey there, my name is chris");
-			// body...
-			var text=document.getElementById('text-chat-arduino').value;
-			console.log('I send '+text);
-			socket.send(text);
+		document.getElementById("piezo").onclick = function() {
+			socket.emit('piezo', 'piezo on/off');
 		}
-
-
 
 </script>
 
