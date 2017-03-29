@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Home</title>
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<!----webfonts---->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+				$(function() {
+				  $('a[href*=#]:not([href=#])').click(function() {
+				    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+				      var target = $(this.hash);
+				      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				      if (target.length) {
+				        $('html,body').animate({
+				          scrollTop: target.offset().top
+				        }, 1000);
+				        return false;
+				      }
+				    }
+				  });
+				});
+		</script>
+		<!-----768px-menu----->
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
+		   <script type="text/javascript">
+				$(window).load(function(){
+					$('div.description').each(function(){
+						$(this).css('display', 'block');
+					});
+
+					$('div.content-top-grid').hover(function(){
+						$(this).children('.description').stop().fadeTo(500, 1);
+					},function(){
+						$(this).children('.description').stop().fadeTo(500, 0);
+					});
+
+				});
+		</script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+			<script type="text/javascript">
+				//	The menu on the left
+				$(function() {
+					$('nav#menu-left').mmenu();
+				});
+		</script>
+		<!-----//768px-menu----->
+	</head>
+	<body>
+		<!----start-wrap---->
+		<!------start-768px-menu---->
+			<div id="page">
+					<div id="header">
+						<a class="navicon" href="#menu-left"> </a>
+					</div>
+					<nav id="menu-left">
+						<ul>
+							<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#process">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="#"><span> </span></a></li>
+							<div class="clear"> </div>
+						</ul>
+					</nav>
+				</div>
+		<!------start-768px-menu---->
+			<!----start-header--->
+			<div class="header">
+				<div class="wrap">
+				<!---start-logo---->
+				<div class="logo">
+					<a href="index.html"><p style="color: white;">Project2 G5</p></a>
+				</div>
+				<!---//End-logo---->
+				<!---start-top-nav---->
+				<div class="top-nav" id="menu-left">
+					<ul>
+						<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#Introduction">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="#"><span> </span></a></li>
+						<div class="clear"> </div>
+					</ul>
+				</div>
+				<!---//End-top-nav---->
+				<div class="clear"> </div>
+			</div>
+			<!----//End-header--->
+		</div>
+
+		
+
+
+			<!--- start-top-services-grids---->
+			<div class="top-grids" id="services">
+				<div class="wrap">
+					<div class="top-grid">
+						<a class="icon colors" href="#"> </a>
+						<a href="#">Data</a>
+						
+					</div>
+					
+				</div>
+			</div>
+
+			<script type="text/javascript">
+document.write("Hello World!")
+</script>
+			<!--- //End-top-services-grids---->
+			
+
+
+			
+
+
+
+
+				<!---start-gallery-script----->
+					<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+					<script type="text/javascript">
+					$(function () {
+						var filterList = {
+							init: function () {
+								// MixItUp plugin
+								$('#portfoliolist').mixitup({
+									targetSelector: '.portfolio',
+									filterSelector: '.filter',
+									effects: ['fade'],
+									easing: 'snap',
+									// call the hover effect
+									onMixEnd: filterList.hoverEffect()
+								});
+							},
+							hoverEffect: function () {
+							}
+						};
+						// Run the show!
+						filterList.init();
+					});
+					</script>
+					<!-- Add fancyBox main JS and CSS files -->
+					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+					<link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+							<script>
+								$(document).ready(function() {
+									$('.popup-with-zoom-anim').magnificPopup({
+										type: 'inline',
+										fixedContentPos: false,
+										fixedBgPos: true,
+										overflowY: 'auto',
+										closeBtnInside: true,
+										preloader: false,
+										midClick: true,
+										removalDelay: 300,
+										mainClass: 'my-mfp-zoom-in'
+								});
+							});
+							</script>
+				<!---//End-gallery-script----->
+				<div class="clear"> </div>
+				</div>
+			</div>
+			</div>
+			</div>
+			<!---//End-portfolioi--->
+
+			
+			<div class="clear"> </div>
+
+
+
+			
+
+			
+		</div>
+		<!----//End-content--->
+		<!----//End-wrap---->
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

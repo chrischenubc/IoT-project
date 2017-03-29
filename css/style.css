@@ -190,7 +190,7 @@ body{
 	padding: 0.5em 0 0.5em 0;
 	display: block;
 	font-weight: 600;
-} 
+}
 .process-top-grid-left p,.process-bottom-grid-right p{
 	color: #5F5F5F;
 	line-height: 1.6em;
@@ -295,7 +295,7 @@ body{
 #info {
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
-	border-radius:5px;				
+	border-radius:5px;
 	background:#fcf8e3;
 	border:1px solid  #fbeed5;
 	width:95%;
@@ -316,12 +316,12 @@ body{
 #info a {
 	color:#c09853;
 	text-decoration:none;
-}	
+}
 #info p {
 	margin:5px 0 0 0;
 }
-.container { 
-	position: relative; 
+.container {
+	position: relative;
 }
 #filters {
 	margin: 6% auto 5% auto;
@@ -692,24 +692,20 @@ body{
 	height:50px;
 	display:inline-block;
 }
+.github span{
+	background:url(../images/icon.png) no-repeat 0px 100px;
+}
 .facebook span{
-	background:url(../images/footer-social-icons.png) no-repeat 0px 0px;
+	background: url(../images/icon.png) no-repeat -100px 100px;
 }
-.twitter span{
-	background: url(../images/footer-social-icons.png) no-repeat -61px 0px;
-}
-.googlepluse span{
-	background: url(../images/footer-social-icons.png) no-repeat -122px 0px;
+
+.github span:hover{
+	background:url(../images/icon.png) no-repeat 0px 0px;
 }
 .facebook span:hover{
-	background:url(../images/footer-social-iconsh.png) no-repeat 0px 0px;
+	background: url(../images/icons.png) no-repeat -61px 0px;
 }
-.twitter span:hover{
-	background: url(../images/footer-social-iconsh.png) no-repeat -61px 0px;
-}
-.googlepluse span:hover{
-	background: url(../images/footer-social-iconsh.png) no-repeat -122px 0px;
-}
+
 .subscribe-form form{
 	width: 57%;
 	margin: 0 auto;
