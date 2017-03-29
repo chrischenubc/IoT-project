@@ -60,7 +60,7 @@ def off():
 def extra():
     socketIO.emit('tempFromPi')
     socketIO.wait(seconds=0.1)
-    
+    global temp
     return statement(temp)
 
 

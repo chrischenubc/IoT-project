@@ -4,13 +4,15 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var temp, humidity, light, distance;
+
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 })
 io.on('connection',function(socket){
     console.log('one user connected '+socket.id);
     /*socket.on('message',function(data){
-		console.log(data);
+                console.log(data);
         var sockets = io.sockets.sockets;
         sockets.forEach(function(sock){
             if(sock.id != socket.id)
@@ -19,49 +21,56 @@ io.on('connection',function(socket){
             }
         })
         //socket.broadcast.emit('message', {message:data});
-		sockets.emit('update', data);
+                sockets.emit('update', data);
     })
-	*/
-	
+        */
+
     socket.on('disconnect',function(){
         console.log('one user disconnected '+socket.id);
     })
+
+        //request from html, send info to android
+        socket.on('led', function(data) {
+                console.log("led on/off");
+                io.sockets.emit('ledToAndroid', 'led on/off');
+        });
+
+        //request from html, send info to android
+        socket.on('piezo', function(data) {
+                console.log("piezo on/off");
+                io.sockets.emit('piezoToAndroid', 'led on/off');
+        });
+
+		socket.on('tempToServer', function(data) {
+			temp = data;
+			//console.log("Received temperature" + data);
+			io.sockets.emit('temp', data);
+		});
 	
-	//request from html, send request to Android
-	socket.on('request', function(data) {
-		//console.log(data);
-		io.sockets.emit('getUpdateInfo', 'getUpdateInfo');	//send to android
-	});
+		socket.on('lightToServer', function(data) {
+			light = data;
+			//console.log("Received photosensor" + data);
+			io.sockets.emit('light', data);
+		});
 	
-	//request from Android, send info to html
-	socket.on('givenUpdateInfo', function(data) {
-		/*console.log("received update info from Android");
-		var splitString = data.split(/[ ,]+/);
-		console.log(splitString);
-		*/
-		io.sockets.emit('update', data);
-	});
+		socket.on('distanceToServer', function(data) {
+			distance = data;
+			//console.log("Received temperature" + data);
+			io.sockets.emit('distance', data);
+		});
 	
-	//request from html, send info to android
-	socket.on('led', function(data) {
-		console.log("led on/off");
-		io.sockets.emit('ledToAndroid', 'led on/off');
-	});
-	
-	//request from html, send info to android
-	socket.on('piezo', function(data) {
-		console.log("piezo on/off");
-		io.sockets.emit('piezo', 'led on/off');
-	});
-	
-	socket.on('tempToServer', function(data) {
-		console.log("Received temperature" + data);
-		io.sockets.emit('temp', data);
-	});
+		socket.on('humidityToServer', function(data) {
+			humidity = data;
+			//console.log("Received temperature" + data);
+			io.sockets.emit('humidity', data);
+		});
+		
+		//request from PI
+		socket.on('tempFromPi', function(data) {
+			io.sockets.emit('tempFromServer', temp);	//send to android
+		});
 })
 
-
-
-http.listen(3000,function(){
+http.listen(9000,function(){
     console.log('server listening on port 3000');
 })
