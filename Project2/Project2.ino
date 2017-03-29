@@ -1,5 +1,8 @@
 #include "DHT.h"    //includes
 #include <SoftwareSerial.h>
+#include <Servo.h>
+
+Servo myservo;
 
 SoftwareSerial BT(9, 10); 
 
@@ -16,10 +19,11 @@ const int LED_PIN = 3;
 //For sonar
 const int ECHO_PIN = 6;           //Pin for ECHO pin on the sonar
 const int TRIG_PIN = 7;           //Pin for ECHO pin on the sonar
-//const int MOTOR_PIN = 9;          //Pin to control the motor    NOT USING FOR NOW
+const int MOTOR_PIN = 9;          //Pin to control the motor    
 
 char data;
 int led_status = 0;
+int servo_status = 0;
 float TmpLM;
 float lightLevel;
 
@@ -35,7 +39,8 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(PTC_READ_PIN, INPUT);
-  //myServo.attach(MOTOR_PIN);
+  myscd Des 
+  ervo.attach(MOTOR_PIN);
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
 }
@@ -48,6 +53,9 @@ void loop() {
     data = BT.read();
     if(data == 'L') {
       LedOnOff();
+    }
+    if(data == 'S'){
+      ServoOnOff();
     }
   }
   
@@ -70,6 +78,17 @@ void LedOnOff() {
   else {
    digitalWrite(LED_PIN, LOW);
    led_status = 0; 
+  }
+}
+
+void ServoOnOff() {
+  if(servo_status == 0){
+    myservo.write(90);
+    servo_status = 1;
+  }
+  else {
+    myservo.write(0);
+    servo_status = 0;
   }
 }
 
