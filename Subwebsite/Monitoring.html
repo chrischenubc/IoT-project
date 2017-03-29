@@ -255,6 +255,14 @@
     position: absolute;
 ">Alarm</button>
 						</div>
+            <div id="bar-chart" >
+              <button id="motor" style="
+    left: 250px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Motor</button>
+            </div>
 
 					</div> <!-- /widget-content -->
 
@@ -298,6 +306,9 @@
 		}
 		document.getElementById("piezo").onclick = function() {
 			socket.emit('piezo', 'piezo on/off');
+		}
+    document.getElementById("motor").onclick = function() {
+			socket.emit('motor', 'motor on/off');
 		}
 
 </script>
