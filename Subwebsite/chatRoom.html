@@ -242,6 +242,7 @@
 						<div id="log_chat" style="overflow: scroll"></div>
 
 						<div id="send-contrl-chat" >
+              <input type="text" placeholder="Your name", id="text-chat-name" style="height: 18px;margin: 10px auto;width:100px">
 							<input type="text" placeholder="Your message here", id="text-chat" style="height: 18px;margin: 10px auto;">
 							<button id="send-chat" style="height: 27px">Send message</button>
 						</div>
@@ -290,18 +291,21 @@
 
 
 <script>
+
 		socket.on('chat',function(msg) {
       console.log(msg);
 			log_chat.innerHTML+=msg+"</br>";
 		});
 
 		document.getElementById('send-chat').onclick=function () {
-			//sock.send("Hey there, my name is chris");
-			// body...
+
+      var name=document.getElementById('text-chat-name').value;
       var text=document.getElementById('text-chat').value;
-			log_chat.innerHTML+=text+"</br>";
-			console.log('I send '+text);
-			socket.emit('message',text);
+      var words=name+": "+text;
+			log_chat.innerHTML+=words+"</br>";
+			console.log('I send '+words);
+			socket.emit('message',words);
+      document.getElementById('text-chat').value="";
 		}
 
 		socket.on('chat message to arduino',function(msg) {
