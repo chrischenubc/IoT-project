@@ -301,6 +301,9 @@
 
       var name=document.getElementById('text-chat-name').value;
       var text=document.getElementById('text-chat').value;
+      if(name.length==0){
+        name="anon.";
+      }
       var words=name+": "+text;
 			log_chat.innerHTML+=words+"</br>";
 			console.log('I send '+words);
