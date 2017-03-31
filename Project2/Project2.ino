@@ -199,12 +199,16 @@ void alarmOff() {
 }
 
 void doorOpen() {
-  myServo.write(0);
+  for(int i = 90; i >= 0; i--){
+    myServo.write(i);
+  }
   servo_status = 1;
 }
 
 void doorClose() {
-  myServo.write(90);
+  for(int i = 0; i <= 90; i++){
+    myServo.write(i);
+  }
   servo_status = 0;
 }
 
