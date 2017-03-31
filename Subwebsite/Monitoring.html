@@ -264,6 +264,34 @@
   ">Motor</button>
             </div>
 
+            <div id="bar-chart" >
+              <button id="auto" style="
+    left: 350px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Auto</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="reset-button" style="
+    left: 450px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Reset</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="turnOff-button" style="
+    left: 550px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">TurnOff</button>
+            </div>
+
+
 					</div> <!-- /widget-content -->
 
 				</div> <!-- /widget -->
@@ -310,6 +338,19 @@
     document.getElementById("motor").onclick = function() {
 			socket.emit('motor', 'motor on/off');
 		}
+    document.getElementById("Auto-button").onclick = function() {
+			socket.emit('Automode', 'Automode on/off');
+		}
+    document.getElementById("reset-button").onclick = function() {
+			socket.emit('Reset', 'reset on/off');
+		}
+    document.getElementById("turnOff-button").onclick = function() {
+			socket.emit('turnOff', 'turn on/off');
+		}
+    document.getElementById("lcd").onclick = function() {
+			socket.emit('LCDtoServer', 'Automode on/off');
+		}
+
 
 </script>
 
