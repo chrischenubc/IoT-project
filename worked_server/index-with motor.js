@@ -41,7 +41,7 @@ io.on('connection',function(socket){
         //request from html, send info to android
         socket.on('motor', function(data) {
                 console.log("piezo on/off");
-                io.sockets.emit('motorToAndroid', 'led on/off');
+                io.sockets.emit('motorToAndroid', 'motor on/off');
         });
 
 		socket.on('tempToServer', function(data) {
