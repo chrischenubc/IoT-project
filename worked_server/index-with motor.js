@@ -40,9 +40,25 @@ io.on('connection',function(socket){
 
         //request from html, send info to android
         socket.on('motor', function(data) {
-                console.log("piezo on/off");
+                console.log("motor on/off");
                 io.sockets.emit('motorToAndroid', 'motor on/off');
         });
+
+        socket.on('Automode', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('AutoModelAndroid', 'automode on/off');
+        });
+
+        socket.on('Reset', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('ResetAndroid', 'automode on/off');
+        });
+
+        socket.on('turnOff', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('TurnOffAndroid', 'turn on/off');
+        });
+
 
 		socket.on('tempToServer', function(data) {
 			temp = data;
