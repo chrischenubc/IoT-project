@@ -323,7 +323,7 @@
 			var text=document.getElementById('text-chat-arduino').value;
       log_chat_arduino.innerHTML+=text+"</br>";
 			console.log('I send '+text);
-			socket.emit('message-arduino',text);
+			socket.emit('LCDtoServer',text);
 		}
 
 
