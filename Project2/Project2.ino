@@ -1,10 +1,12 @@
 #include "DHT.h"    //includes
 #include <SoftwareSerial.h>
+#include <LiquidCrystal.h>
 #include <Servo.h>
 
 SoftwareSerial BT(9, 10); 
+LiquidCrystal lcd(4,12,13,A0,A3,A4);
 
-const int DHT_READ_PIN = 11;      //pin assignment of DHT sensor
+const int DHT_READ_PIN = 11;       //pin assignment of DHT sensor
 const int DHT_TYPE=11;            //DHT model 11
 const int LM_READ_PIN = A5;       //pin assignment of LM35 sensor
 const int PTC_READ_PIN = A1;      //pin assignment of photocell
@@ -21,7 +23,12 @@ char data;
 char dataSerial;
 int led_status = 0;
 int alarm_status = 0;
+int alarm_alternation = 0;
 int servo_status = 0;
+int auto_mode_status = 0;
+int triggered = 0;
+int led_trigger_status = 0;
+int led_alternation = 0;
 float TmpLM;
 float lightLevel;
 float humidity;
@@ -45,6 +52,8 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
 
+  lcd.begin(16, 2);
+
   doorClose();
 }
 
@@ -53,16 +62,74 @@ void setup() {
  */
 void loop() {
   
-  checkBluetoothSerial();
+  checkBluetoothForCommand();
   
   TmpLM=readTmpLM();
   lightLevel=readLight();
   humidity=readHumDHT();
   distance=readSonar();
+
+  checkAutoMode();
+
+  checkAlarmStatus();
+  checkLEDStatus();
   
   String inputData = String(TmpLM) + " " + String(humidity) + " " + String(distance) + " " + String(lightLevel);
   Serial.println(inputData);
   
+  updateViaBluetooth();
+}
+
+/*
+ * Must come after reading input values
+ * Must come before checkAlarmStatus() and checkLEDStatus()
+ */
+void checkAutoMode() {
+  if(auto_mode_status == 1) {
+    if(distance < 10) {
+      triggered = 1;
+      doorClose();
+    }
+    if(triggered == 1) {
+      alarm_status = 1;
+      led_trigger_status = 1;
+    } else {            //if not triggered, don't do the trigger activity
+      alarm_status = 0;
+      led_trigger_status = 0;
+    }
+  }
+}
+
+void checkAlarmStatus() {
+  if(alarm_status == 1) {
+    if(alarm_alternation == 0){
+      tone(PIEZO_PIN, 1865);
+      alarm_alternation = 1;
+    }
+    else {
+      tone(PIEZO_PIN, 1976);
+      alarm_alternation = 0;
+    }
+  }
+  else
+    noTone(PIEZO_PIN);
+}
+
+void checkLEDStatus() {
+  if(led_trigger_status == 1) {
+    if(led_alternation == 0) {
+      digitalWrite(LED_PIN, HIGH);
+      led_alternation = 1;
+    } else {
+      digitalWrite(LED_PIN, LOW);
+      led_alternation = 0;
+    }
+  } else {  
+      led_alternation = 0;
+  }
+}
+
+void updateViaBluetooth() {
   BT.print(addOneToLeft(TmpLM, "1"));
   delay(200);
   BT.print(addOneToLeft(lightLevel, "2"));
@@ -73,7 +140,7 @@ void loop() {
   delay(200);
 }
 
-void checkBluetoothSerial() {
+void checkBluetoothForCommand() {
   if(BT.available()) {
     data = BT.read();
     if(data == 'L') {
@@ -82,6 +149,26 @@ void checkBluetoothSerial() {
       AlarmOnOff();
     } else if(data == 'S') {
       ServoOnOff();
+    } else if (data == 'A') { //turn on auto mode
+      auto_mode_status = 1;
+    } else if (data == 'R') { //reset the auto mode
+      triggered = 0;
+      digitalWrite(LED_PIN, LOW);
+    } else if (data == 'O') { //turn off auto mode
+      triggered = 0;
+      alarm_status = 0;
+      led_trigger_status = 0;
+      auto_mode_status = 0;
+    } else if (data == 'T') { //time
+      String time = BT.readString();
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(time);
+    } else if (data == 'C') {
+      String text = BT.readString();
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(text);
     }
   }
 
@@ -104,12 +191,10 @@ void checkBluetoothSerial() {
 }
 
 void alarmOn() {
-   tone(PIEZO_PIN, 1000); 
    alarm_status = 1;  
 }
 
 void alarmOff() {
-   noTone(PIEZO_PIN);
    alarm_status = 0;
 }
 
@@ -135,14 +220,10 @@ void ServoOnOff() {
 }
 
 void AlarmOnOff() {
-  if(alarm_status == 0){
-    tone(PIEZO_PIN, 1000); 
+  if(alarm_status == 0)
     alarm_status = 1;    
-  }
-  else{
-    noTone(PIEZO_PIN);
+  else
     alarm_status = 0;
-  }
 }
 
 void LedOnOff() {
