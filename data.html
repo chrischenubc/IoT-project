@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+	<head lang="en">
+		<title>Home</title>
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<!----webfonts---->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+				$(function() {
+				  $('a[href*=#]:not([href=#])').click(function() {
+				    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+				      var target = $(this.hash);
+				      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				      if (target.length) {
+				        $('html,body').animate({
+				          scrollTop: target.offset().top
+				        }, 1000);
+				        return false;
+				      }
+				    }
+				  });
+				});
+		</script>
+		<!-----768px-menu----->
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
+		   <script type="text/javascript">
+				$(window).load(function(){
+					$('div.description').each(function(){
+						$(this).css('display', 'block');
+					});
+
+					$('div.content-top-grid').hover(function(){
+						$(this).children('.description').stop().fadeTo(500, 1);
+					},function(){
+						$(this).children('.description').stop().fadeTo(500, 0);
+					});
+
+				});
+		</script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+			<script type="text/javascript">
+				//	The menu on the left
+				$(function() {
+					$('nav#menu-left').mmenu();
+				});
+		</script>
+		<!-----//768px-menu----->
+
+    <!--heads for socket.io  -->
+    <meta charset="UTF-8">
+    <title>Node Socket</title>
+      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+      <script>
+        var socket = io.connect("ws://38.88.74.87:9000");
+        function requestUpdate(data) {
+      socket.emit('request', 'requested');
+    }
+
+    setInterval(requestUpdate, 1000);
+
+    socket.on('update', function(data) {
+      var splitString = data.split(/[ ,]+/);
+      document.getElementById("temp").innerHTML=splitString[0];
+      document.getElementById("humidity").innerHTML=splitString[1];
+      document.getElementById("lightlevel").innerHTML=splitString[2];
+    });
+
+    </script>
+
+
+
+
+
+
+
+
+	</head>
+	<body  class="img-slider">
+		<!----start-wrap---->
+		<!------start-768px-menu---->
+			<div id="page">
+					<div id="header">
+						<a class="navicon" href="#menu-left"> </a>
+					</div>
+					<nav id="menu-left">
+						<ul>
+							<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#process">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="#"><span> </span></a></li>
+							<div class="clear"> </div>
+						</ul>
+					</nav>
+				</div>
+		<!------start-768px-menu---->
+			<!----start-header--->
+			<div class="header">
+				<div class="wrap">
+				<!---start-logo---->
+				<div class="logo">
+					<a href="index.html"><p style="color: white">Project2 G5</p></a>
+				</div>
+				<!---//End-logo---->
+				<!---start-top-nav---->
+				<div class="top-nav" id="menu-left">
+					<ul>
+						<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#Introduction">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="#"><span> </span></a></li>
+						<div class="clear"> </div>
+					</ul>
+				</div>
+				<!---//End-top-nav---->
+				<div class="clear"> </div>
+			</div>
+			<!----//End-header--->
+		</div>
+
+    <!--Start Recording values  -->
+
+    <div class="data_style" ,id="data">
+      <div style="
+    	position: absolute;
+    	left: 130px;
+    	top: 0px;
+    	height: 50px;
+    	" ,id="Div-temp">
+        <h1>Temperature:</h1>
+        <p style="color: white" ,="" id="temp">NULL</p>
+      </div>
+
+      <div style="
+    	position: absolute;
+    	top: 0px;
+    	left: 560px;
+    	height: 50px;
+    	" ,id="Div-humi">
+        <h1>Humidity:</h1>
+        <p id="humidity">NULL</p>
+      </div>
+
+      <div style="
+    	left: 900px;
+    	top: 0px;
+    	height: 50px;
+    	position: absolute;
+    	" id="Div-lightlevel">
+        <h1>Photosensor:</h1>
+        <p id="lightlevel">NULL</p>
+      </div>
+
+      <button id="led" style="
+    left: 130px;
+    top: 72px;
+    position: absolute;
+">LED on/off</button>
+      <button id="piezo" style="
+    left: 220px;
+    /* background-color: red; */
+    top: 72px;
+    position: absolute;
+">Alarm</button>
+    </div>
+
+
+
+
+</body>
+</html>

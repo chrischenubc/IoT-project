@@ -38,30 +38,52 @@ io.on('connection',function(socket){
                 io.sockets.emit('piezoToAndroid', 'led on/off');
         });
 
+        //request from html, send info to android
+        socket.on('motor', function(data) {
+                console.log("motor on/off");
+                io.sockets.emit('motorToAndroid', 'motor on/off');
+        });
+
+        socket.on('Automode', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('AutoModelAndroid', 'automode on/off');
+        });
+
+        socket.on('Reset', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('ResetAndroid', 'automode on/off');
+        });
+
+        socket.on('turnOff', function(data) {
+          console.log("piezo on/off");
+          io.sockets.emit('TurnOffAndroid', 'turn on/off');
+        });
+
+
 		socket.on('tempToServer', function(data) {
 			temp = data;
 			//console.log("Received temperature" + data);
 			io.sockets.emit('temp', data);
 		});
-	
+
 		socket.on('lightToServer', function(data) {
 			light = data;
 			//console.log("Received photosensor" + data);
 			io.sockets.emit('light', data);
 		});
-	
+
 		socket.on('distanceToServer', function(data) {
 			distance = data;
 			//console.log("Received temperature" + data);
 			io.sockets.emit('distance', data);
 		});
-	
+
 		socket.on('humidityToServer', function(data) {
 			humidity = data;
 			//console.log("Received temperature" + data);
 			io.sockets.emit('humidity', data);
 		});
-		
+
 		//request from PI
 		socket.on('tempFromPi', function(data) {
 			io.sockets.emit('tempFromServer', temp);	//send to android
@@ -71,9 +93,13 @@ io.on('connection',function(socket){
 			//io.emit('chat', msg);
 			socket.broadcast.emit('chat', msg);
 		});
+
+    socket.on('message-arduino', function(msg){
+			//io.emit('chat', msg);
+			socket.broadcast.emit('chat-arduino-android', msg);
+		});
 })
 
 http.listen(9000,function(){
     console.log('server listening on port 3000');
 })
-

@@ -207,28 +207,28 @@
 					<div class="stat-holder">
 						<div class="stat">
 							<span id="temp">NULL</span>
-							Temperature
+							Temperature in Celsius
 						</div> <!-- /stat -->
 					</div> <!-- /stat-holder -->
 
 					<div class="stat-holder">
 						<div class="stat">
 							<span id="humidity">NULL</span>
-							Humidity
+							Humidity Percentage %
 						</div> <!-- /stat -->
 					</div> <!-- /stat-holder -->
 
 					<div class="stat-holder">
 						<div class="stat">
 							<span id="lightlevel">NULL</span>
-							Photosensor
+							Photosensor Percentage %
 						</div> <!-- /stat -->
 					</div> <!-- /stat-holder -->
 
 					<div class="stat-holder">
 						<div class="stat">
 							<span id="distance">NULL</span>
-							Ultrasonic
+							Ultrasonic Range /cm
 						</div> <!-- /stat -->
 					</div> <!-- /stat-holder -->
 
@@ -255,6 +255,42 @@
     position: absolute;
 ">Alarm</button>
 						</div>
+            <div id="bar-chart" >
+              <button id="motor" style="
+    left: 250px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Motor</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="Auto-button" style="
+    left: 350px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Auto</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="reset-button" style="
+    left: 450px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Reset</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="turnOff-button" style="
+    left: 550px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">TurnOff</button>
+            </div>
+
 
 					</div> <!-- /widget-content -->
 
@@ -299,6 +335,20 @@
 		document.getElementById("piezo").onclick = function() {
 			socket.emit('piezo', 'piezo on/off');
 		}
+    document.getElementById("motor").onclick = function() {
+			socket.emit('motor', 'motor on/off');
+		}
+    document.getElementById("Auto-button").onclick = function() {
+			socket.emit('Automode', 'Automode on/off');
+		}
+    document.getElementById("reset-button").onclick = function() {
+			socket.emit('Reset', 'reset on/off');
+		}
+    document.getElementById("turnOff-button").onclick = function() {
+			socket.emit('turnOff', 'turn on/off');
+		}
+
+
 
 </script>
 

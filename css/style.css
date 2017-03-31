@@ -37,6 +37,14 @@ body{
 	font-family: 'Open Sans', sans-serif;
 	background:#FFF;
 }
+
+.data_style{
+  position: absolute;
+  top: 90px;
+  width: 1024px;
+  color:white;
+}
+
 /*----start-wrap---*/
 .wrap{
 	width:70%;
