@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Monitoring</title>
+    <title>Camera</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -29,12 +29,12 @@
 <!-- for socket.io -->
 
 <meta charset="UTF-8">
-    <title>Monitoring</title>
+    <title>Chat Room</title>
 
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
       var socket = io.connect("ws://38.88.74.87:9000");
-		//var socket = io.connect("http://localhost:3000");
+		//var socket = io.connect("http://localhost:8080");
 		function requestUpdate(data) {
 			socket.emit('request', 'requested');
 		}
@@ -44,7 +44,36 @@
 
 
 		</script>
+
+<style type="text/css">
+	div#log_chat {
+    width: 830px;
+    height: 150px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+</style>
+
+<style type="text/css">
+	div#log_chat_arduino {
+    width: 830px;
+    height: 150px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+</style>
+
+
+
+
+
   </head>
+
+
+
+
 
 <body>
 
@@ -138,14 +167,14 @@
 
 				<ul id="main-nav" class="nav nav-tabs nav-stacked">
 
-					<li class="active">
+					<li >
 						<a href="./Monitoring.html">
 							<i class="icon-home"></i>
 							Monitoring
 						</a>
 					</li>
 
-					<li>
+					<li class="active">
 						<a href="./streaming.html">
 							<i class="icon-pushpin"></i>
 							Camera
@@ -198,101 +227,24 @@
 			<div class="span9">
 
 				<h1 class="page-title">
-					<i class="icon-home"></i>
-					Monitoring
+					<i class="icon-pushpin"></i>
+					Camera
 				</h1>
-
-				<div class="stat-container">
-
-					<div class="stat-holder">
-						<div class="stat">
-							<span id="temp">NULL</span>
-							Temperature in Celsius
-						</div> <!-- /stat -->
-					</div> <!-- /stat-holder -->
-
-					<div class="stat-holder">
-						<div class="stat">
-							<span id="humidity">NULL</span>
-							Humidity Percentage %
-						</div> <!-- /stat -->
-					</div> <!-- /stat-holder -->
-
-					<div class="stat-holder">
-						<div class="stat">
-							<span id="lightlevel">NULL</span>
-							Photosensor Percentage %
-						</div> <!-- /stat -->
-					</div> <!-- /stat-holder -->
-
-					<div class="stat-holder">
-						<div class="stat">
-							<span id="distance">NULL</span>
-							Ultrasonic Range /cm
-						</div> <!-- /stat -->
-					</div> <!-- /stat-holder -->
-
-
-
-				</div> <!-- /stat-container -->
 
 				<div class="widget">
 
 					<div class="widget-header">
 						<i class="icon-signal"></i>
-						<h3>Control</h3>
+						<h3>Video Streaming</h3>
 					</div> <!-- /widget-header -->
 
-					<div class="widget-content">
-						<div id="bar-chart" >
-							<button id="led">LED on/off</button>
-						</div>
-						<div id="bar-chart" >
-							<button id="piezo" style="
-    left: 150px;
-    /* background-color: red; */
-    top: 62px;
-    position: absolute;
-">Alarm</button>
-						</div>
-            <div id="bar-chart" >
-              <button id="motor" style="
-    left: 250px;
-    /* background-color: red; */
-    top: 62px;
-    position: absolute;
-  ">Motor</button>
-            </div>
-
-            <div id="bar-chart" >
-              <button id="Auto-button" style="
-    left: 350px;
-    /* background-color: red; */
-    top: 62px;
-    position: absolute;
-  ">Auto</button>
-            </div>
-
-            <div id="bar-chart" >
-              <button id="reset-button" style="
-    left: 450px;
-    /* background-color: red; */
-    top: 62px;
-    position: absolute;
-  ">Reset</button>
-            </div>
-
-            <div id="bar-chart" >
-              <button id="turnOff-button" style="
-    left: 550px;
-    /* background-color: red; */
-    top: 62px;
-    position: absolute;
-  ">TurnOff</button>
-            </div>
-
-
+					<div class="widget-content" id="video streaming" style="text-align:center">
+            <img style="-webkit-user-select: none; " src="http://128.189.84.138:3000/" width="640" height="480">
 					</div> <!-- /widget-content -->
+
+				</div> <!-- /widget -->
+
+
 
 				</div> <!-- /widget -->
 
@@ -316,36 +268,39 @@
 
 
 <script>
-		socket.on('temp', function(data) {
-			document.getElementById("temp").innerHTML=data;
-		});
-		socket.on('light', function(data) {
-			document.getElementById("lightlevel").innerHTML=data;
-		});
-		socket.on('humidity', function(data) {
-			document.getElementById("humidity").innerHTML=data;
-		});
-		socket.on('distance', function(data) {
-			document.getElementById("distance").innerHTML=data;
+
+		socket.on('chat',function(msg) {
+      console.log(msg);
+			log_chat.innerHTML+=msg+"</br>";
 		});
 
-		document.getElementById("led").onclick = function() {
-			socket.emit('led', 'led on/off');
+		document.getElementById('send-chat').onclick=function () {
+
+      var name=document.getElementById('text-chat-name').value;
+      var text=document.getElementById('text-chat').value;
+      if(name.length==0){
+
+	name="Anon.";
+	}
+
+      var words=name+": "+text;
+			log_chat.innerHTML+=words+"</br>";
+			console.log('I send '+words);
+			socket.emit('message',words);
+      document.getElementById('text-chat').value="";
 		}
-		document.getElementById("piezo").onclick = function() {
-			socket.emit('piezo', 'piezo on/off');
-		}
-    document.getElementById("motor").onclick = function() {
-			socket.emit('motor', 'motor on/off');
-		}
-    document.getElementById("Auto-button").onclick = function() {
-			socket.emit('Automode', 'Automode on/off');
-		}
-    document.getElementById("reset-button").onclick = function() {
-			socket.emit('Reset', 'reset on/off');
-		}
-    document.getElementById("turnOff-button").onclick = function() {
-			socket.emit('turnOff', 'turn on/off');
+
+		socket.on('chat message to arduino',function(msg) {
+			console.log(msg);
+			log_chat_arduino.innerHTML+=msg+"</br>";
+		});
+
+		document.getElementById('send-chat-arduino').onclick=function () {
+
+			var text=document.getElementById('text-chat-arduino').value;
+      log_chat_arduino.innerHTML+=text+"</br>";
+			console.log('I send '+text);
+			socket.emit('LCDtoServer',text);
 		}
 
 
