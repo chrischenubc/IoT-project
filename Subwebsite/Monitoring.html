@@ -265,7 +265,7 @@
             </div>
 
             <div id="bar-chart" >
-              <button id="auto" style="
+              <button id="Auto-button" style="
     left: 350px;
     /* background-color: red; */
     top: 62px;
@@ -347,9 +347,7 @@
     document.getElementById("turnOff-button").onclick = function() {
 			socket.emit('turnOff', 'turn on/off');
 		}
-    document.getElementById("lcd").onclick = function() {
-			socket.emit('LCDtoServer', 'Automode on/off');
-		}
+
 
 
 </script>
