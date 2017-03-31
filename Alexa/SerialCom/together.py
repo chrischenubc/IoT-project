@@ -90,17 +90,49 @@ def joke():
 @ask.intent("OpenWebsite")
 def web():
 
-    os.command("xdg-open http://38.88.74.87")
+    os.system("xdg-open http://38.88.74.87")
 
     return statement("Victoria Security main page is opening")
 
-@ask.intent("OpenGmailail")
+@ask.intent("OpenGmail")
 def gmail():
 
-    os.command("xdg-open https://mail.google.com/mail/u/0/")
+    os.system("xdg-open https://mail.google.com/mail/u/0/")
 
     return statement("Your gmail is opening")   
 
+@ask.intent("OpenChatroom")
+def chatroom():
+    
+    os.system("xdg-open http://38.88.74.87/Subwebsite/chatRoom.html")
+
+    return statement("Victoria Security chatroom is opening")
+
+@ask.intent("Test")
+def test():
+
+    return statement("The computer is fine")
+
+@ask.intent("OpenSurveillance")
+def videoStream():
+
+    os.system("xdg-open http://128.189.84.138:3000")
+
+    return statement("Victoria Security video servallence is opening")
+
+@ask.intent("OpenDatapage")
+def datapage():
+
+    os.system("xdg-open http://38.88.74.87/Subwebsite/Monitoring.html")
+
+    return statement("Victoria Security monitoring page is opening")
+
+@ask.intent("OpenFacebookPage")
+def facebookPage():
+
+    os.system("xdg-open https://www.facebook.com/Victoria-Security-1821395828176172/")
+
+    return statement("Victoria Security facebook page is opening")
 
 if __name__ == "__main__":
     app.run(debug=True)
