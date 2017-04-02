@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Dashboard - Bootstrap Admin</title>
+    <title>Chat Room</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@
 					</li>
 
 					<li>
-						<a href="http://128.189.84.138:3000" target="_blank">
+						<a href="./streaming.html">
 							<i class="icon-pushpin"></i>
 							Camera
 						</a>
@@ -242,6 +242,7 @@
 						<div id="log_chat" style="overflow: scroll"></div>
 
 						<div id="send-contrl-chat" >
+              <input type="text" placeholder="Your name", id="text-chat-name" style="height: 18px;margin: 10px auto;width:100px">
 							<input type="text" placeholder="Your message here", id="text-chat" style="height: 18px;margin: 10px auto;">
 							<button id="send-chat" style="height: 27px">Send message</button>
 						</div>
@@ -290,18 +291,26 @@
 
 
 <script>
+
 		socket.on('chat',function(msg) {
       console.log(msg);
 			log_chat.innerHTML+=msg+"</br>";
 		});
 
 		document.getElementById('send-chat').onclick=function () {
-			//sock.send("Hey there, my name is chris");
-			// body...
+
+      var name=document.getElementById('text-chat-name').value;
       var text=document.getElementById('text-chat').value;
-			log_chat.innerHTML+=text+"</br>";
-			console.log('I send '+text);
-			socket.emit('message',text);
+      if(name.length==0){
+
+	name="Anon.";
+	}
+
+      var words=name+": "+text;
+			log_chat.innerHTML+=words+"</br>";
+			console.log('I send '+words);
+			socket.emit('message',words);
+      document.getElementById('text-chat').value="";
 		}
 
 		socket.on('chat message to arduino',function(msg) {
@@ -310,11 +319,11 @@
 		});
 
 		document.getElementById('send-chat-arduino').onclick=function () {
-			//sock.send("Hey there, my name is chris");
-			// body...
+
 			var text=document.getElementById('text-chat-arduino').value;
+      log_chat_arduino.innerHTML+=text+"</br>";
 			console.log('I send '+text);
-			socket.send(text);
+			socket.emit('LCDtoServer',text);
 		}
 
 

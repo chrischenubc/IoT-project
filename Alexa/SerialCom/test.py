@@ -30,5 +30,5 @@ socketIO.on('reconnect', on_reconnect)
 socketIO.on('tempFromServer', on_python)
 
 while True:
-    socketIO.emit('tempFromPi')
+    socketIO.emit('tempFromPi', 'hgjh')
     socketIO.wait(seconds=1)

@@ -1,31 +1,40 @@
 #include "DHT.h"    //includes
 #include <SoftwareSerial.h>
+#include <LiquidCrystal.h>
 #include <Servo.h>
 
-Servo myservo;
-
 SoftwareSerial BT(9, 10); 
+LiquidCrystal lcd(4,12,13,A0,A3,A4);
 
-const int DHT_READ_PIN = 11;      //pin assignment of DHT sensor
+const int DHT_READ_PIN = 11;       //pin assignment of DHT sensor
 const int DHT_TYPE=11;            //DHT model 11
-const int SWITH_READ_PIN =12;     //pin assignment of switch
 const int LM_READ_PIN = A5;       //pin assignment of LM35 sensor
 const int PTC_READ_PIN = A1;      //pin assignment of photocell
-const int ON = 1;
-const int OFF = 0;
 const int PRECISION=4;            //precision of data display
 const int LED_PIN = 3;
+const int PIEZO_PIN = 8;
 
 //For sonar
 const int ECHO_PIN = 6;           //Pin for ECHO pin on the sonar
 const int TRIG_PIN = 7;           //Pin for ECHO pin on the sonar
-const int MOTOR_PIN = 9;          //Pin to control the motor    
+const int MOTOR_PIN = 5;          //Pin to control the motor    NOT USING FOR NOW
 
 char data;
+char dataSerial;
 int led_status = 0;
+int alarm_status = 0;
+int alarm_alternation = 0;
 int servo_status = 0;
+int auto_mode_status = 0;
+int triggered = 0;
+int led_trigger_status = 0;
+int led_alternation = 0;
 float TmpLM;
 float lightLevel;
+float humidity;
+float distance;
+
+Servo myServo;
 
 DHT dht(DHT_READ_PIN, DHT_TYPE);  //creator of dht library
 
@@ -39,35 +48,186 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(PTC_READ_PIN, INPUT);
-  myscd Des 
-  ervo.attach(MOTOR_PIN);
+  myServo.attach(MOTOR_PIN);
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
+
+  lcd.begin(16, 2);
+
+  doorClose();
 }
 
 /**
  * Read the switch status, and decide which style of display it shall follow
  */
 void loop() {
+  
+  checkBluetoothForCommand();
+  
+  TmpLM=readTmpLM();
+  lightLevel=readLight();
+  humidity=readHumDHT();
+  distance=readSonar();
+
+  checkAutoMode();
+
+  checkAlarmStatus();
+  checkLEDStatus();
+  
+  String inputData = String(TmpLM) + " " + String(humidity) + " " + String(distance) + " " + String(lightLevel);
+  Serial.println(inputData);
+  
+  updateViaBluetooth();
+}
+
+/*
+ * Must come after reading input values
+ * Must come before checkAlarmStatus() and checkLEDStatus()
+ */
+void checkAutoMode() {
+  if(auto_mode_status == 1) {
+    if(distance < 10) {
+      triggered = 1;
+      doorClose();
+    }
+    if(triggered == 1) {
+      alarm_status = 1;
+      led_trigger_status = 1;
+    } else {            //if not triggered, don't do the trigger activity
+      alarm_status = 0;
+      led_trigger_status = 0;
+    }
+  }
+}
+
+void checkAlarmStatus() {
+  if(alarm_status == 1) {
+    if(alarm_alternation == 0){
+      tone(PIEZO_PIN, 1865);
+      alarm_alternation = 1;
+    }
+    else {
+      tone(PIEZO_PIN, 1976);
+      alarm_alternation = 0;
+    }
+  }
+  else
+    noTone(PIEZO_PIN);
+}
+
+void checkLEDStatus() {
+  if(led_trigger_status == 1) {
+    if(led_alternation == 0) {
+      digitalWrite(LED_PIN, HIGH);
+      led_alternation = 1;
+    } else {
+      digitalWrite(LED_PIN, LOW);
+      led_alternation = 0;
+    }
+  } else {  
+      led_alternation = 0;
+  }
+}
+
+void updateViaBluetooth() {
+  BT.print(addOneToLeft(TmpLM, "1"));
+  delay(200);
+  BT.print(addOneToLeft(lightLevel, "2"));
+  delay(200);
+  BT.print(addOneToLeft(distance, "3"));
+  delay(200);
+  BT.print(addOneToLeft(humidity, "4"));
+  delay(200);
+}
+
+void checkBluetoothForCommand() {
   if(BT.available()) {
     data = BT.read();
     if(data == 'L') {
       LedOnOff();
-    }
-    if(data == 'S'){
+    } else if(data == 'P') {
+      AlarmOnOff();
+    } else if(data == 'S') {
       ServoOnOff();
+    } else if (data == 'A') { //turn on auto mode
+      auto_mode_status = 1;
+    } else if (data == 'R') { //reset the auto mode
+      triggered = 0;
+      digitalWrite(LED_PIN, LOW);
+    } else if (data == 'O') { //turn off auto mode
+      triggered = 0;
+      alarm_status = 0;
+      led_trigger_status = 0;
+      auto_mode_status = 0;
+    } else if (data == 'T') { //time
+      String time = BT.readString();
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(time);
+    } else if (data == 'C') {
+      String text = BT.readString();
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print(text);
     }
   }
-  
-  TmpLM=readTmpLM();
-  lightLevel=readLight();
-  BT.print(addOneToLeft(TmpLM, "1"));
-  Serial.println(TmpLM);
-  Serial.println(lightLevel);
-  delay(300);
- // BT.print(addOneToLeft(lightLevel, '2'));
-  
-  //delay(400);
+
+  if(Serial.available()) {
+    dataSerial = Serial.read();
+    if(dataSerial == 'N') {
+      LedOn();
+    } else if(dataSerial == 'F') {
+      LedOff();
+    } else if(dataSerial == 'O') {
+      doorOpen();
+    } else if(dataSerial == 'C') {
+      doorClose();
+    } else if(dataSerial == 'A') {
+      alarmOn();
+    } else if(dataSerial == 'B') {
+      alarmOff();
+    } 
+  }
+}
+
+void alarmOn() {
+   alarm_status = 1;  
+}
+
+void alarmOff() {
+   alarm_status = 0;
+}
+
+void doorOpen() {
+  for(int i = 90; i >= 0; i--){
+    myServo.write(i);
+  }
+  servo_status = 1;
+}
+
+void doorClose() {
+  for(int i = 0; i <= 90; i++){
+    myServo.write(i);
+  }
+  servo_status = 0;
+}
+
+void ServoOnOff() {
+  if(servo_status == 0){
+    myServo.write(0);
+    servo_status = 1;
+  }
+  else {
+    myServo.write(90);
+    servo_status = 0;
+  }
+}
+
+void AlarmOnOff() {
+  if(alarm_status == 0)
+    alarm_status = 1;    
+  else
+    alarm_status = 0;
 }
 
 void LedOnOff() {
@@ -81,52 +241,21 @@ void LedOnOff() {
   }
 }
 
-void ServoOnOff() {
-  if(servo_status == 0){
-    myservo.write(90);
-    servo_status = 1;
-  }
-  else {
-    myservo.write(0);
-    servo_status = 0;
-  }
+void LedOn() {
+  digitalWrite(LED_PIN, HIGH);
+  led_status = 1; 
+}
+
+void LedOff() {
+  digitalWrite(LED_PIN, LOW);
+  led_status = 0; 
 }
 
 float addOneToLeft(float value, String beginNum) {
   String string1 = String(value);
-  String string2 = "1" + beginNum + string1;
+  String string2 = "9" + beginNum + string1;
   return string2.toFloat();
 }
-
-
-/**
- * Function: Collect data from three sensors and display it in format when the switch is off
- * 
-*/
-void offMode(){
-  float TmpLM=readTmpLM();
-  float TmpDHT=readTmpDHT();
-  float HumDHT=readHumDHT();
-  float lightLevel=readLight();
-  format(TmpLM, TmpDHT, HumDHT, lightLevel);
-  return;
-  }
-
-  
-
-/**
- * Function: Collect data from three sensors and display it in format when the switch is on
- * 
-*/
-void onMode(){
-  float TmpLM=readTmpLM();
-  float TmpDHT=readTmpDHT();
-  float HumDHT=readHumDHT();
-  float lightLevel=readLight();
-  noFormat(TmpLM, TmpDHT, HumDHT, lightLevel);
-  return;
-}
-
 
 /**
  * Function: Read from analog pin the LM35 temperature sensor is connected to, and map the voltage to temperature in degree celsuis
@@ -191,49 +320,6 @@ float mapping(float value, float inputLowerBond, float inputUpperBond, float out
       return scale*value+offset;      //The process above can be mathmatically proved to be effective
   }
 
-/**
- * Funtion: Print the data with full format
- * Param: float TmpLM: The tempterature reading from the LM35 Sensor
- *        float TmpDHT: The temperature reading from DHT sensor
- *        float HumDHT: The humidity reading from DHT sensor
- *        float lightLevel: The light reading from the photocell
- * Return: None
-*/
-void format(float TmpLM, float TmpDHT, float HumDHT, float lightLevel){
-  Serial.print("The temperature reading from LM35 is: ");
-  Serial.print(TmpLM, PRECISION);
-  Serial.print(" degree celsius. \n");
-  Serial.print("The temperature reading from DHT11 is: ");
-  Serial.print(TmpDHT, PRECISION);
-  Serial.print(" degree celsius\n");
-  Serial.print("The humidity readging from DHT is: ");
-  Serial.print(HumDHT, PRECISION);
-  Serial.print("% \n");
-  Serial.print("The light reading is: ");
-  Serial.print(lightLevel, PRECISION);
-  Serial.print("\n");
-  Serial.print("End of this round of reading. \n\n");
-}
-
-/**
- * Funtion: Print the data without format
- * Param: float TmpLM: The tempterature reading from the LM35 Sensor
- *        float TmpDHT: The temperature reading from DHT sensor
- *        float HumDHT: The humidity reading from DHT sensor
- *        float lightLevel: The light reading from the photocell
- * Return: None
-*/
-void noFormat(float TmpLM, float TmpDHT, float HumDHT, float lightLevel){
-  Serial.print(TmpLM, PRECISION);
-  Serial.print(" ");
-  Serial.print(TmpDHT, PRECISION);
-  Serial.print(" ");
-  Serial.print(HumDHT, PRECISION);
-  Serial.print(" ");
-  Serial.print(lightLevel, PRECISION);
-  Serial.print("\n");
-  }
-
   /**
  * Function: Control the sonar to send a pulse, and measure the duration from the echo, calculate the distance as per temperature
  * returns: a float that indicates the distance it gets, in cm, from 0 to 200, -1 if the range is not reasonable.
@@ -249,7 +335,7 @@ float readSonar(){
     float sound_speed=331.5 + (0.6 * temp);                 //calculate the sound speed at the point
     distance = (duration * sound_speed * 0.0001)/2;        //compute distance from duration of echo Pin
     delay(200);
-    if (distance >= 200 || distance <= 0){   //deciding whether or not distance is reasonable
+    if (distance >= 400 || distance <= 0){   //deciding whether or not distance is reasonable
         return(-1);                         //if not, return -1
     }
     else{
