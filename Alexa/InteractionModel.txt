@@ -1,0 +1,102 @@
+Intent Schema:
+
+{
+  "intents": [
+    {
+      "intent": "LightOn"
+    },
+    {
+      "intent": "LightOff"
+    },
+    {
+      "intent": "Temperature"
+    },
+    {
+      "intent": "Humidity"
+    },
+    {
+      "intent": "Distance"
+    },
+    {
+      "intent": "Light"
+    },
+    {
+      "intent": "DoorOpen"
+    },
+    {
+      "intent": "DoorClose"
+    },
+    {
+      "intent": "BuzzerOn"
+    },
+    {
+      "intent": "BuzzerOff"
+    },
+    {
+      "intent": "Joke"
+    },
+    {
+      "intent": "OpenWebsite"
+    },
+    {
+      "intent": "OpenGmail"
+    },
+    {
+      "intent": "Test"
+    },
+    {
+      "intent": "OpenChatroom"
+    },
+    {
+      "intent": "OpenSurveillance"
+    },
+    {
+      "intent": "OpenDatapage"
+    },
+    {
+      "intent": "OpenFacebookPage"
+    }
+  ]
+}
+
+Sample Utterance:
+
+LightOn say on
+LightOn say hall light on
+LightOn say turn on the light
+LightOff say off
+LightOff say hall light off
+LightOff say turn off the light
+Temperature say current temperature
+Temperature say temperature
+Humidity say humidity
+Distance say distance
+Light say light level
+DoorOpen say open the door
+DoorOpen say open door
+DoorClose say close the door
+DoorClose say close door
+BuzzerOn say turn on the buzzer
+BuzzerOn say buzzer on
+BuzzerOff say turn off the buzzer
+BuzzerOff say buzzer off
+Joke say tell us a dark joke
+Joke say dark joke
+OpenWebsite say open our website
+OpenWebsite say open Vicotia Security
+OpenWebsite say Victoria Security
+OpenGmail say open gmail
+OpenGmail say gmail
+OpenGmail say open my mailbox
+Test say test computer
+OpenChatroom say open our chatroom
+OpenChatroom say open cahtroom
+OpenChatroom say chatroom
+OpenSurveillance say open video streaming
+OpenSurveillance say open video surveillance
+OpenSurveillance say video streaming
+OpenSurveillance say video surveillance
+OpenDatapage say open data page
+OpenDatapage say open monitering page
+OpenFacebookPage say open facebook page
+OpenFacebookPage say open our facebook page
