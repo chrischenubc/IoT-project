@@ -1,38 +1,37 @@
+//import libarais, incliding express and socket.io framework
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var temp, humidity, light, distance;
 
+//dealing with the http request and sent the index.html to clients
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 })
-io.on('connection',function(socket){
-    console.log('one user connected '+socket.id);
-    /*socket.on('message',function(data){
-                console.log(data);
-        var sockets = io.sockets.sockets;
-        sockets.forEach(function(sock){
-            if(sock.id != socket.id)
-            {
-                sock.emit('message',data);
-            }
-        })
-        //socket.broadcast.emit('message', {message:data});
-                sockets.emit('update', data);
-    })
-        */
 
+//make the server listen to port 9000
+http.listen(9000,function(){
+    console.log('server listening on port 9000');
+})
+
+//once the web socket connection is on
+io.on('connection',function(socket){
+    //log in the console that there is a client connected
+    console.log('one user connected '+socket.id);
+
+    //log in the console that there is a client disconnectted
     socket.on('disconnect',function(){
         console.log('one user disconnected '+socket.id);
     })
-	
+
+    //deal with 'startTime' event
 		socket.on('startTime', function(data) {
 			setInterval(function(){
 			io.sockets.emit("TimeAndroid", 'hi');
 		}, 10000);
 		});
-		
-		
+
+    //deal with 'LCDtoServer' event
 		socket.on('LCDtoServer', function(data) {
 			io.sockets.emit('LCDAndroid', data);
 		});
@@ -55,63 +54,65 @@ io.on('connection',function(socket){
                 io.sockets.emit('motorToAndroid', 'motor on/off');
         });
 
+        //request from html, send info to android
         socket.on('Automode', function(data) {
           console.log("piezo on/off");
           io.sockets.emit('AutoModeAndroid', 'automode on/off');
         });
 
+        //request from html, send info to android
         socket.on('Reset', function(data) {
           console.log("piezo on/off");
           io.sockets.emit('ResetAndroid', 'automode on/off');
         });
 
+        //request from html, send info to android
         socket.on('turnOff', function(data) {
           console.log("piezo on/off");
           io.sockets.emit('TurnOffAndroid', 'turn on/off');
         });
 
+        //request from android, send info to html
+    		socket.on('tempToServer', function(data) {
+    			temp = data;
+    			//console.log("Received temperature" + data);
+    			io.sockets.emit('temp', data);
+    		});
 
-		socket.on('tempToServer', function(data) {
-			temp = data;
-			//console.log("Received temperature" + data);
-			io.sockets.emit('temp', data);
-		});
+        //request from android, send info to html
+    		socket.on('lightToServer', function(data) {
+    			light = data;
+    			//console.log("Received photosensor" + data);
+    			io.sockets.emit('light', data);
+    		});
 
-		socket.on('lightToServer', function(data) {
-			light = data;
-			//console.log("Received photosensor" + data);
-			io.sockets.emit('light', data);
-		});
+        //request from android, send info to html
+    		socket.on('distanceToServer', function(data) {
+    			distance = data;
+    			//console.log("Received temperature" + data);
+    			io.sockets.emit('distance', data);
+    		});
 
-		socket.on('distanceToServer', function(data) {
-			distance = data;
-			//console.log("Received temperature" + data);
-			io.sockets.emit('distance', data);
-		});
+        //request from android, send info to html
+    		socket.on('humidityToServer', function(data) {
+    			humidity = data;
+    			//console.log("Received temperature" + data);
+    			io.sockets.emit('humidity', data);
+    		});
 
-		socket.on('humidityToServer', function(data) {
-			humidity = data;
-			//console.log("Received temperature" + data);
-			io.sockets.emit('humidity', data);
-		});
+    		//request from PI
+    		socket.on('tempFromPi', function(data) {
+    			console.log(data);
+    			io.sockets.emit('tempFromServer', temp);	//send to android
+    		});
 
-		//request from PI
-		socket.on('tempFromPi', function(data) {
-			console.log(data);
-			io.sockets.emit('tempFromServer', temp);	//send to android
-		});
+    		socket.on('message', function(msg){
+    			//io.emit('chat', msg);
+    			socket.broadcast.emit('chat', msg);
+    		});
 
-		socket.on('message', function(msg){
-			//io.emit('chat', msg);
-			socket.broadcast.emit('chat', msg);
-		});
-
-    socket.on('message-arduino', function(msg){
-			//io.emit('chat', msg);
-			socket.broadcast.emit('chat-arduino-android', msg);
-		});
-})
-
-http.listen(9000,function(){
-    console.log('server listening on port 3000');
+        socket.on('message-arduino', function(msg){
+    			//io.emit('chat', msg);
+    			socket.broadcast.emit('chat-arduino-android', msg);
+    		});
 })

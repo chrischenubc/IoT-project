@@ -1,3 +1,4 @@
+<!--This is a template we used to create our website  -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,12 +19,6 @@
 
     <link href="./css/pages/dashboard.css" rel="stylesheet" />
 
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <!-- for socket.io -->
@@ -31,6 +26,7 @@
 <meta charset="UTF-8">
     <title>Chat Room</title>
 
+  <!--This is the javascript to connect to the socket.io  -->
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
       var socket = io.connect("ws://38.88.74.87:9000");
@@ -38,10 +34,6 @@
 		function requestUpdate(data) {
 			socket.emit('request', 'requested');
 		}
-
-		//setInterval(requestUpdate, 1000);
-
-
 
 		</script>
 
@@ -65,11 +57,7 @@
 }
 </style>
 
-
-
-
-
-  </head>
+</head>
 
 
 
@@ -94,9 +82,7 @@
 			<div class="nav-collapse">
 
 				<ul class="nav pull-right">
-					<!-- <li>
-						<a href="#"><span class="badge badge-warning">7</span></a>
-					</li> -->
+
 
 					<li class="divider-vertical"></li>
 
@@ -133,6 +119,8 @@
 </div> <!-- /navbar -->
 
 
+
+<!--We customize the websites here  -->
 <div id="content">
 
 	<div class="container">
@@ -181,14 +169,6 @@
 						</a>
 					</li>
 
-					<!-- <li>
-						<a href="./grid.html">
-							<i class="icon-th-large"></i>
-							Grid Layout
-							<span class="label label-warning pull-right">5</span>
-						</a>
-					</li> -->
-
 					<li class="active">
 						<a href="./chatRoom.html">
 							<i class="icon-signal"></i>
@@ -223,7 +203,7 @@
 			</div> <!-- /span3 -->
 
 
-
+<!--Here are the codes we used to design our chatroom -->
 			<div class="span9">
 
 				<h1 class="page-title">
@@ -289,7 +269,7 @@
 </div> <!-- /content -->
 
 
-
+<!--Here is the javascript code to emit events to server  -->
 <script>
 
 		socket.on('chat',function(msg) {
