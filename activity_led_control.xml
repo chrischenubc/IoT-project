@@ -1,0 +1,274 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/lib-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.led_on_off.led.ledControl"
+    android:background="#D8D8D8">
+
+    <LinearLayout
+        android:id="@+id/graph"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:background="@drawable/ledcont"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/humidityblock"
+        android:background="#FFFFFF"
+        android:layout_below="@+id/temperatureblock"
+        android:layout_marginTop="10dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_marginLeft="30dp"
+
+            android:text="Humidity"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/note_humanity"
+            />
+
+        <TextView
+            android:layout_marginLeft="55dp"
+            android:text=""
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/humidity"
+            tools:text=""
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:layout_weight="0.13" />
+
+        <TextView
+            android:text="%"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="#000000"
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/humidityunit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:id="@+id/temperatureblock"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:weightSum="1"
+        android:layout_below="@+id/graph"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_marginLeft="30dp"
+
+            android:text="Temperature"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/note"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/temperature"
+            tools:text="Null"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:layout_weight="0.60" />
+
+        <TextView
+            android:text="°C"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="35dp"
+            android:textColor="#000000"
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tempatureunit"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/discnt"
+        android:src="@drawable/disconnect"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:id="@+id/ultrasonicsenorblock"
+        android:background="#FFFFFF"
+        android:layout_width="95dp"
+        android:layout_height="100dp"
+        android:onClick="switch_to_chatroom"
+        android:layout_alignBaseline="@+id/alarmButton"
+        android:layout_alignBottom="@+id/alarmButton"
+        android:layout_toRightOf="@+id/photosensorblock"
+        android:layout_toEndOf="@+id/photosensorblock">
+
+        <TextView
+            android:textColor="#000000"
+            android:text="ultrasonic sensor reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:id="@+id/ultrasonicreading" />
+
+        <TextView
+            android:text="Null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="30dp"
+
+            android:id="@+id/ultrasonicsensor"
+            android:layout_below="@+id/ultrasonicreading"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/led"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:onClick="LEDOnOff"
+        android:text="LED"
+        android:layout_below="@+id/alarmButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/alarmButton"
+        android:onClick="BuzzerAlarmOnOff"
+        android:layout_below="@+id/humidityblock"
+        android:layout_toEndOf="@+id/AutoModel"
+        android:layout_alignLeft="@+id/servobutton"
+        android:layout_alignStart="@+id/servobutton" />
+
+    <RelativeLayout
+        android:id="@+id/photosensorblock"
+        android:background="#FFFFFF"
+        android:layout_width="95dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/ultrasonicsenorblock"
+        android:layout_alignBottom="@+id/ultrasonicsenorblock"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:textColor="#000000"
+            android:text="photosensor reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="12dp"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:text="Null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/photosensor"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chatRoomButton"
+        android:background="@null"
+        android:src="@drawable/about"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="switch_to_chatroom" />
+
+    <Button
+        android:id="@+id/servobutton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:onClick="turnServo2"
+        android:text="Servo"
+        android:layout_below="@+id/led"
+        android:layout_toRightOf="@+id/TurnOfModel"
+        android:layout_toEndOf="@+id/TurnOfModel"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
+
+    <Button
+        android:id="@+id/AutoModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/led"
+        android:layout_below="@+id/humidityblock"
+        android:layout_toEndOf="@+id/ultrasonicsenorblock"
+        android:layout_toLeftOf="@+id/led"
+        android:layout_toRightOf="@+id/ultrasonicsenorblock"
+        android:onClick="Automodel"
+        android:text="Auto" />
+
+    <Button
+        android:id="@+id/TurnOfModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/servobutton"
+        android:layout_below="@+id/alarmButton"
+        android:layout_toEndOf="@+id/ultrasonicsenorblock"
+        android:layout_toLeftOf="@+id/led"
+        android:layout_toRightOf="@+id/ultrasonicsenorblock"
+        android:onClick="TurnOff"
+        android:text="OFF" />
+
+    <Button
+        android:id="@+id/Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/servobutton"
+        android:layout_below="@+id/led"
+        android:layout_toRightOf="@+id/ultrasonicsenorblock"
+        android:layout_toStartOf="@+id/servobutton"
+        android:onClick="Reset"
+        android:text="Reset"
+        android:layout_toLeftOf="@+id/servobutton" />
+
+</RelativeLayout>
