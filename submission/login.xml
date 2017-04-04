@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/loginblock"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="155dp"
+            android:background="@color/accent_material_dark"
+            android:backgroundTint="@color/accent_material_dark"
+            android:ems="10"
+            android:hint="User Name"
+            android:inputType="textPersonName"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setUserName"
+            android:text="Signup"
+            android:layout_below="@+id/username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="130dp" />
+
+
+            />
+
+    </RelativeLayout>
+</LinearLayout>
