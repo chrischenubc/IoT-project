@@ -1,11 +1,20 @@
-
+#import flask and flask_ask as Python framework 
+#to simplify the skill development procedure
 from flask import Flask
 from flask_ask import Ask, statement
 import requests
 import json
+
+#import serial library to enable serial communication 
 import serial
+
+#import os library in order to enable Voice Control system to 
+#execute Linux commands and shell scripts. This significantly 
+#expands the capability of voice control system. Opening web browser
+#function is achieved using this method
 import os
 
+#Setting things up
 ser = serial.Serial("/dev/ttyACM0", 9600)
 
 app = Flask(__name__)
@@ -13,13 +22,26 @@ ask = Ask(app, '/')
 
 @ask.launch
 
+#link the function to the intent "LightOn"
 @ask.intent("LightOn")
+#Once the Alexa Web Service receives the words "LightOn", the 
+#intent "LightOn" will be triggered and the function on() below 
+#will be executed
 def on():
+    #use a for loop to send the byte 'N' to the 
+	#Arduino for 10 times, reducing the possibility 
+	#that Arduino fails to receive the signal
     for a in xrange(1, 10):
+		#Send the byte 'N' to Arduino using serial communication
         ser.write(b'N')
-
+	
+	#This is the return statement which is supposed to be first sent
+	#to Amazon Web Server, and later returned in audio format to be 
+	#played on local machine
     return statement("Hall light turned on.")
 
+#The code below has the same structure and foramt as the previous code,
+#so most of the comments are omitted 
 @ask.intent("LightOff")
 def off():
     for b in xrange(1, 10):
@@ -90,10 +112,14 @@ def joke():
 @ask.intent("OpenWebsite")
 def web():
 
+	#Execute the Linux command below to open the url using 
+	#the default web browser
     os.system("xdg-open http://38.88.74.87")
 
     return statement("Victoria Security main page is opening")
 
+#The code below has the same structure and foramt as the previous code,
+#so the comments are omitted 
 @ask.intent("OpenGmail")
 def gmail():
 
