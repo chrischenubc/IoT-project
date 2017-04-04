@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Home</title>
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<!----webfonts---->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+		<!----//webfonts---->
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+				$(function() {
+				  $('a[href*=#]:not([href=#])').click(function() {
+				    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+				      var target = $(this.hash);
+				      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				      if (target.length) {
+				        $('html,body').animate({
+				          scrollTop: target.offset().top
+				        }, 1000);
+				        return false;
+				      }
+				    }
+				  });
+				});
+		</script>
+		<!-----768px-menu----->
+		<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
+		   <script type="text/javascript">
+				$(window).load(function(){
+					$('div.description').each(function(){
+						$(this).css('display', 'block');
+					});
+
+					$('div.content-top-grid').hover(function(){
+						$(this).children('.description').stop().fadeTo(500, 1);
+					},function(){
+						$(this).children('.description').stop().fadeTo(500, 0);
+					});
+
+				});
+		</script>
+		<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+			<script type="text/javascript">
+				//	The menu on the left
+				$(function() {
+					$('nav#menu-left').mmenu();
+				});
+		</script>
+		<!-----//768px-menu----->
+	</head>
+	<body>
+		<!----start-wrap---->
+		<!------start-768px-menu---->
+			<div id="page">
+					<div id="header">
+						<a class="navicon" href="#menu-left"> </a>
+					</div>
+					<nav id="menu-left">
+						<ul>
+							<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#process">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="./index.html"><span> </span></a></li>
+							<div class="clear"> </div>
+						</ul>
+					</nav>
+				</div>
+		<!------start-768px-menu---->
+			<!----start-header--->
+			<div class="header">
+				<div class="wrap">
+				<!---start-logo---->
+				<div class="logo">
+					<a href="index.html"><p style="color: white">Project2 G5</p></a>
+				</div>
+				<!---//End-logo---->
+				<!---start-top-nav---->
+				<div class="top-nav" id="menu-left">
+					<ul>
+						<li class="active"><a href="#home">Home</a></li>
+						<li><a href="#services">Control Panel</a></li>
+						<li><a href="#Introduction">Project Introduction</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li class="nav-icon"><a href="./index.html"><span> </span></a></li>
+						<div class="clear"> </div>
+					</ul>
+				</div>
+				<!---//End-top-nav---->
+				<div class="clear"> </div>
+			</div>
+			<!----//End-header--->
+		</div>
+
+		<!----start-image-slider---->
+		<div class="img-slider" id="home">
+			<!-- start slider -->
+		    <div id="fwslider">
+		        <div class="slider_container">
+		            <div class="slide">
+		                <!-- Slide image -->
+		                <!-- /Slide image -->
+		                <!-- Texts container -->
+		                <div class="slide_content">
+		                    <div class="slide_content_wrap">
+		                        <!-- Text title -->
+		                        <h4 class="title">This is Victoria's Security</h4>
+		                        <!-- /Text title -->
+		                        <!-- Text description -->
+		                        <p class="description">Perfect Security</p>
+		                        <!-- /Text description -->
+		                        <div class="slide-btns description">
+		                        	<ul>
+		                        		<li><a class="minfo" href="#services">Control Panel </a></li>
+
+		                        		<div class="clear"> </div>
+		                        	</ul>
+		                        	<a class="screen-divice" href="#"><img src="images/divice-screen1.png" title="divice-name" /> </a>
+		                        </div>
+		                    </div>
+		                </div>
+		                 <!-- /Texts container -->
+		            </div>
+		            <!-- /Duplicate to create more slides -->
+		            <div class="slide">
+		                <div class="slide_content">
+		                    <div class="slide_content_wrap">
+		                        <!-- Text title -->
+		                        <h4 class="title">We Embrace Future</h4>
+		                        <!-- /Text title -->
+		                        <!-- Text description -->
+		                        <p class="description">Love to get world arround us</p>
+		                        <!-- /Text description -->
+		                        <div class="slide-btns description">
+		                        	<ul>
+		                        		<li><a class="minfo" href="#Introduction">Project Description </a></li>
+		                        		<li><a class="minfo" href="#portfolio">Team</a></li>
+		                        	</ul>
+		                        	<a class="screen-divice" href="#"><img src="images/divice-screen1.png" title="divice-name" /> </a>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <!--/slide -->
+		        </div>
+		        <div class="timers"> </div>
+		        <div class="slidePrev"><span> </span></div>
+		        <div class="slideNext"><span> </span></div>
+		    </div>
+		    <!---slider---->
+		    <link rel="stylesheet" href="css/fwslider.css" media="all">
+			<script src="js/css3-mediaqueries.js"></script>
+			<script src="js/fwslider.js"></script>
+			<!---//slider---->
+		    <!--/slider -->
+		</div>
+		<div class="clear"> </div>
+		<!----//End-image-slider---->
+		<!----start-content--->
+		<div class="content">
+			<!--- start-top-services-grids---->
+			<div class="top-grids" id="services" >
+
+				<div class="wrap">
+					<div class="top-grid">
+						<a class="icon man" href="./Subwebsite/Monitoring.html"> </a>
+						<a href="./Subwebsite/Monitoring.html">Monitoring</a>
+						<p>Your Personal Assistant</p>
+					</div>
+					<div class="top-grid">
+						<a class="icon monitor" href="./Subwebsite/chatRoom.html"> </a>
+						<a href="./Subwebsite/chatRoom.html">Chat Room</a>
+						<p>Being Connected</p>
+					</div>
+					<div class="top-grid">
+						<a class="icon colors" href="http://128.189.84.138:3000" target="_blank"> </a>
+						<a href="http://128.189.84.138:3000" target="_blank">Security Camera</a>
+						<p>Your Scope Has No Limit</p>
+					</div>
+
+
+					<div class="clear"> </div>
+				</div>
+			</div>
+			<!--- //End-top-services-grids---->
+			<!---start-process---->
+			<div class="process-grids" id="Introduction";>
+				<div class="wrap">
+					<div class="process-top-grid">
+						<div class="process-top-grid-left">
+							<h3>Project Introduction</h3>
+							<p>
+In this project, we would like to develop a voice-controlled smart home and personal assistant. We can use our voice to ask for information, control appliances such as lights and doors and supervise security status at home. </br> </br> This is made possible with Raspberry Pi, Arduino and web technologies. Voice control is not a new idea, and many electronic devices have already had it, such as Siri in Apple products, Cortana in Microsoft, although they are not used very often compared to conventional ways of dealing with personal issues. Our voice control system focus more on smart home systems, and will always stand by your security needs for the ones you love. </br> </br>Raspberry Pi is considered to be a reliable processor as the core of the system and deal with all the data and control signals. Arduino and its related components will get you the latest information about outside world and loyally follow your instructions. A well-designed website also allows complete access to all the features. With several clicks, the latest status inside your home will be presented to you. What is more, a mobile app will give you the control and information no matter where you are, and it is very easy to use, just talk to it, and it will do as you said. With this system in hand, you can explore every corner of the world without worrying about your home behind you.</p>
+						</div>
+						<div class="process-top-grid-right" style="position: absolute;
+    right: 50px;
+    top: 1325px;">
+							<a herf="#"><img src="images/divices.png" title="divices" /></a>
+						</div>
+						<div class="clear"> </div>
+					</div>
+					<!-- <div class="process-bottom-grid">
+						<div class="process-bottom-grid-left">
+							<img src="images/video.jpg" title="video-name" />
+						</div>
+						<div class="process-bottom-grid-right">
+							<h3>TEMPLATE STRUCTURE</h3>
+							<p>Design equidem tibique id duo, movet definiebas at has. Ne duo autem utamur utroque, nusquam dissentias cum ut. In pri putant civibus, nec in homero accusamus. Eam perfecto. Reque scaevola ponderum laudem numquam, audire impedit percipitur.</p>
+							<p>Dico omnis graeco eum cu, patrioque vix ludus . Labitur abhorreant. Luptatum iudicabit his. Quidam semper omittam.</p>
+							<p>Eam perfecto. Reque scaevola ponderum laudem numquam, audire impedit percipitur.</p>
+						</div>
+						<div class="clear"> </div>
+					</div>
+				</div> -->
+			</div>
+			<!---//End-process---->
+			<!---start-portfolio--->
+
+			<div class="portfolio" id="portfolio">
+				<div class="recent-works" id="portfolio">
+				<div class="recent-works-head">
+					<h3>Group Members</h3>
+				</div>
+				<div class="wrap">
+				<!---start-mfp ---->
+
+
+			<div id="small-dialog1" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Yu Chen</h2>
+					<p class="para">Web Development</p>
+				</div>
+			</div>
+
+			<div id="small-dialog2" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Hanyu WU</h2>
+					<p class="para">Web Development</p>
+				</div>
+			</div>
+
+			<<div id="small" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Yuhao Huang</h2>
+					<p class="para">Web Development</p>
+				</div>
+			</div>
+
+			<div id="small-dialog4" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Benjamin Hong</h2>
+					<p class="para">Raspberry Pi</p>
+				</div>
+			</div>
+
+			<div id="small-dialog5" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Ziqiao Lin</h2>
+					<p class="para">Android App</p>
+				</div>
+			</div>
+
+			<div id="small-dialog6" class="mfp-hide">
+				<div class="pop_up">
+					<h2>Yuxiang Huang</h2>
+					<p class="para">Arduino</p>
+				</div>
+			</div>
+			<!---end-mfp ---->
+				<div class="gallery">
+					<div class="container">
+					<ul id="filters" class="clearfix">
+						<li><span class="filter active" data-filter="yuchen hanyu yuhao ben ziqiao yuxiang">All</span></li>
+						<li><span class="filter" data-filter="yuchen hanyu yuhao">Web Team</span></li>
+						<li><span class="filter" data-filter="yuxiang ziqiao">Hardware Team</span></li>
+						<li><span class="filter" data-filter="ben ziqiao">Android Team</span></li>
+					</ul>
+						<div id="portfoliolist" style="     ">
+
+						<div class="portfolio yuchen mix_all" data-cat="yuchen" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small-dialog1">
+									<img src="images/yuchen-chris.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+						<div class="portfolio hanyu mix_all" data-cat="hanyu" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small-dialog2">
+									<img src="images/hanyu.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+						<div class="portfolio yuhao mix_all" data-cat="yuhao" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small">
+									<img src="images/yuhao.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+						<div class="portfolio ben mix_all" data-cat="ben" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small-dialog4">
+									<img src="images/ben.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+
+						<div class="portfolio ziqiao mix_all" data-cat="ziqiao" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small-dialog5">
+									<img src="images/Ziqiao-John.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+
+						<div class="portfolio yuxiang mix_all" data-cat="yuxiang" style="display: inline-block; opacity: 1;">
+							<div class="portfolio-wrapper">
+								<a class="popup-with-zoom-anim" href="#small-dialog6">
+									<img src="images/yuxiang.png" alt="Image 2" style="top: 0px;">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div><!-- container -->
+				<div class="clear"> </div>
+				<!---start-gallery-script----->
+					<script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+					<script type="text/javascript">
+					$(function () {
+						var filterList = {
+							init: function () {
+								// MixItUp plugin
+								$('#portfoliolist').mixitup({
+									targetSelector: '.portfolio',
+									filterSelector: '.filter',
+									effects: ['fade'],
+									easing: 'snap',
+									// call the hover effect
+									onMixEnd: filterList.hoverEffect()
+								});
+							},
+							hoverEffect: function () {
+							}
+						};
+						// Run the show!
+						filterList.init();
+					});
+					</script>
+					<!-- Add fancyBox main JS and CSS files -->
+					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+					<link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+							<script>
+								$(document).ready(function() {
+									$('.popup-with-zoom-anim').magnificPopup({
+										type: 'inline',
+										fixedContentPos: false,
+										fixedBgPos: true,
+										overflowY: 'auto',
+										closeBtnInside: true,
+										preloader: false,
+										midClick: true,
+										removalDelay: 300,
+										mainClass: 'my-mfp-zoom-in'
+								});
+							});
+							</script>
+				<!---//End-gallery-script----->
+				<div class="clear"> </div>
+				</div>
+			</div>
+			</div>
+			</div>
+			<!---//End-portfolioi--->
+
+			<!---start-contact---->
+			<div class="contact" id="contact">
+				<div class="contact-head">
+					<h3>Keep calm, Create awesome Stuff</h3>
+				</div>
+				<div class="wrap">
+					<div class="contact-info">
+						<div class="getin-touch">
+							<h4>GET IN TOUCH</h4>
+							<ul>
+								<li><a class="facebook" href="#"><span> </span></a></li>
+								<li><a class="github" href="#"><span> </span></a></li>
+								<div class="clear"> </div>
+							</ul>
+							<a href="https://github.com/CPEN-291/G5_A_P2">
+  <img src="images/ghwhite.png" alt="Github Repo" style="width:44px;height:42px;border:0">
+</a>
+<a href="https://www.facebook.com/Victoria-Security-1821395828176172/">
+<img src="images/fbwhite.png" alt="Facebook Page" style="width:48px;height:42px;border:0">
+</a>
+						</div>
+						<div class="subscribe-form">
+							<form>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!---//End-contact---->
+		</div>
+		<!----//End-content--->
+		<!----//End-wrap---->
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>
