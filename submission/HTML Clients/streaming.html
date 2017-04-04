@@ -1,0 +1,289 @@
+<!--This is a template we used to create our website  -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Camera</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+
+    <link href="./css/font-awesome.css" rel="stylesheet" />
+
+    <link href="./css/adminia.css" rel="stylesheet" />
+    <link href="./css/adminia-responsive.css" rel="stylesheet" />
+
+    <link href="./css/pages/dashboard.css" rel="stylesheet" />
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- for socket.io -->
+
+<meta charset="UTF-8">
+    <title>Chat Room</title>
+
+
+		</script>
+
+<style type="text/css">
+	div#log_chat {
+    width: 830px;
+    height: 150px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+</style>
+
+<style type="text/css">
+	div#log_chat_arduino {
+    width: 830px;
+    height: 150px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+</style>
+
+
+  </head>
+
+
+
+
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+
+	<div class="navbar-inner">
+
+		<div class="container">
+
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<a class="brand" href="./../index.html">Home</a>
+
+			<div class="nav-collapse">
+
+				<ul class="nav pull-right">
+
+
+					<li class="divider-vertical"></li>
+
+					<li class="dropdown">
+
+						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
+							G5 <b class="caret"></b>
+						</a>
+
+						<ul class="dropdown-menu">
+							<li>
+								<a href="./account.html"><i class="icon-user"></i> Account Setting  </a>
+							</li>
+
+							<li>
+								<a href="./change_password.html"><i class="icon-lock"></i> Change Password</a>
+							</li>
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="./"><i class="icon-off"></i> Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div> <!-- /nav-collapse -->
+
+		</div> <!-- /container -->
+
+	</div> <!-- /navbar-inner -->
+
+</div> <!-- /navbar -->
+
+
+
+<!--We customize the websites here  -->
+<div id="content">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="span3">
+
+				<div class="account-container">
+
+					<div class="account-avatar">
+						<img src="./img/vs.jpg" alt="" class="thumbnail" />
+					</div> <!-- /account-avatar -->
+
+					<div class="account-details">
+
+						<span class="account-name">G5 CPEN291</span>
+
+						<span class="account-role">Administrator</span>
+
+						<span class="account-actions">
+							<a href="javascript:;">Profile</a> |
+
+							<a href="javascript:;">Edit Settings</a>
+						</span>
+
+					</div> <!-- /account-details -->
+
+				</div> <!-- /account-container -->
+
+				<hr />
+
+				<ul id="main-nav" class="nav nav-tabs nav-stacked">
+
+					<li >
+						<a href="./Monitoring.html">
+							<i class="icon-home"></i>
+							Monitoring
+						</a>
+					</li>
+
+					<li class="active">
+						<a href="./streaming.html">
+							<i class="icon-pushpin"></i>
+							Camera
+						</a>
+					</li>
+
+					<li>
+						<a href="./chatRoom.html">
+							<i class="icon-signal"></i>
+							ChatRoom
+						</a>
+					</li>
+
+					<li>
+						<a href="./account.html">
+							<i class="icon-user"></i>
+							User Account
+						</a>
+					</li>
+
+					<li>
+						<a href="./login.html">
+							<i class="icon-lock"></i>
+							Login
+						</a>
+					</li>
+
+				</ul>
+
+				<hr />
+
+				<div class="sidebar-extra">
+					<p>Your personal home sercurity.</p>
+				</div> <!-- .sidebar-extra -->
+
+				<br />
+
+			</div> <!-- /span3 -->
+
+
+
+			<div class="span9">
+
+				<h1 class="page-title">
+					<i class="icon-pushpin"></i>
+					Camera
+				</h1>
+
+				<div class="widget">
+
+					<div class="widget-header">
+						<i class="icon-signal"></i>
+						<h3>Video Streaming</h3>
+					</div> <!-- /widget-header -->
+
+
+<!--This is where we put our video streaming  -->
+					<div class="widget-content" id="video streaming" style="text-align:center">
+            <img style="-webkit-user-select: none; " src="http://128.189.84.138:3000/" width="640" height="480">
+					</div> <!-- /widget-content -->
+
+				</div> <!-- /widget -->
+
+
+
+				</div> <!-- /widget -->
+
+
+
+
+
+					</div> <!-- /widget-content -->
+
+				</div> <!-- /widget -->
+
+			</div> <!-- /span9 -->
+
+
+		</div> <!-- /row -->
+
+	</div> <!-- /container -->
+
+</div> <!-- /content -->
+
+
+
+<script>
+
+		socket.on('chat',function(msg) {
+      console.log(msg);
+			log_chat.innerHTML+=msg+"</br>";
+		});
+
+		document.getElementById('send-chat').onclick=function () {
+
+      var name=document.getElementById('text-chat-name').value;
+      var text=document.getElementById('text-chat').value;
+      if(name.length==0){
+
+	name="Anon.";
+	}
+
+      var words=name+": "+text;
+			log_chat.innerHTML+=words+"</br>";
+			console.log('I send '+words);
+			socket.emit('message',words);
+      document.getElementById('text-chat').value="";
+		}
+
+		socket.on('chat message to arduino',function(msg) {
+			console.log(msg);
+			log_chat_arduino.innerHTML+=msg+"</br>";
+		});
+
+		document.getElementById('send-chat-arduino').onclick=function () {
+
+			var text=document.getElementById('text-chat-arduino').value;
+      log_chat_arduino.innerHTML+=text+"</br>";
+			console.log('I send '+text);
+			socket.emit('LCDtoServer',text);
+		}
+
+
+
+</script>
+
+
+
+  </body>
+</html>
