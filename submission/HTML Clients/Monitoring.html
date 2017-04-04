@@ -1,0 +1,340 @@
+<!--This is a template we used to create our website  -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+
+    <link href="./css/font-awesome.css" rel="stylesheet" />
+
+    <link href="./css/adminia.css" rel="stylesheet" />
+    <link href="./css/adminia-responsive.css" rel="stylesheet" />
+
+    <link href="./css/pages/dashboard.css" rel="stylesheet" />
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- for socket.io -->
+
+<meta charset="UTF-8">
+    <title>Monitoring</title>
+
+  <!--This is the javascript to connect to the socket.io  -->
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script>
+      var socket = io.connect("ws://38.88.74.87:9000");
+		//var socket = io.connect("http://localhost:3000");
+		function requestUpdate(data) {
+			socket.emit('request', 'requested');
+		}
+
+		</script>
+  </head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+
+	<div class="navbar-inner">
+
+		<div class="container">
+
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<a class="brand" href="./../index.html">Home</a>
+
+			<div class="nav-collapse">
+
+				<ul class="nav pull-right">
+					<!-- <li>
+						<a href="#"><span class="badge badge-warning">7</span></a>
+					</li> -->
+
+					<li class="divider-vertical"></li>
+
+					<li class="dropdown">
+
+						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
+							G5 <b class="caret"></b>
+						</a>
+
+						<ul class="dropdown-menu">
+							<li>
+								<a href="./account.html"><i class="icon-user"></i> Account Setting  </a>
+							</li>
+
+							<li>
+								<a href="./change_password.html"><i class="icon-lock"></i> Change Password</a>
+							</li>
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="./"><i class="icon-off"></i> Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div> <!-- /nav-collapse -->
+
+		</div> <!-- /container -->
+
+	</div> <!-- /navbar-inner -->
+
+</div> <!-- /navbar -->
+
+
+
+<!--We customize the websites here  -->
+<div id="content">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="span3">
+
+				<div class="account-container">
+
+					<div class="account-avatar">
+						<img src="./img/vs.jpg" alt="" class="thumbnail" />
+					</div> <!-- /account-avatar -->
+
+					<div class="account-details">
+
+						<span class="account-name">G5 CPEN291</span>
+
+						<span class="account-role">Administrator</span>
+
+						<span class="account-actions">
+							<a href="javascript:;">Profile</a> |
+
+							<a href="javascript:;">Edit Settings</a>
+						</span>
+
+					</div> <!-- /account-details -->
+
+				</div> <!-- /account-container -->
+
+				<hr />
+
+				<ul id="main-nav" class="nav nav-tabs nav-stacked">
+
+					<li class="active">
+						<a href="./Monitoring.html">
+							<i class="icon-home"></i>
+							Monitoring
+						</a>
+					</li>
+
+					<li>
+						<a href="./streaming.html">
+							<i class="icon-pushpin"></i>
+							Camera
+						</a>
+					</li>
+
+					<li>
+						<a href="./chatRoom.html">
+							<i class="icon-signal"></i>
+							ChatRoom
+						</a>
+					</li>
+
+					<li>
+						<a href="./account.html">
+							<i class="icon-user"></i>
+							User Account
+						</a>
+					</li>
+
+					<li>
+						<a href="./login.html">
+							<i class="icon-lock"></i>
+							Login
+						</a>
+					</li>
+
+				</ul>
+
+				<hr />
+
+				<div class="sidebar-extra">
+					<p>Your personal home sercurity.</p>
+				</div> <!-- .sidebar-extra -->
+
+				<br />
+
+			</div> <!-- /span3 -->
+
+
+<!--Here are the codes we used to display real-time sensor values and control button -->
+			<div class="span9">
+
+				<h1 class="page-title">
+					<i class="icon-home"></i>
+					Monitoring
+				</h1>
+
+				<div class="stat-container">
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="temp">NULL</span>
+							Temperature in Celsius
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="humidity">NULL</span>
+							Humidity Percentage %
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="lightlevel">NULL</span>
+							Photosensor Percentage %
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+					<div class="stat-holder">
+						<div class="stat">
+							<span id="distance">NULL</span>
+							Ultrasonic Range /cm
+						</div> <!-- /stat -->
+					</div> <!-- /stat-holder -->
+
+
+
+				</div> <!-- /stat-container -->
+
+				<div class="widget">
+
+					<div class="widget-header">
+						<i class="icon-signal"></i>
+						<h3>Control</h3>
+					</div> <!-- /widget-header -->
+
+					<div class="widget-content">
+						<div id="bar-chart" >
+							<button id="led">LED on/off</button>
+						</div>
+						<div id="bar-chart" >
+							<button id="piezo" style="
+    left: 150px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+">Alarm</button>
+						</div>
+            <div id="bar-chart" >
+              <button id="motor" style="
+    left: 250px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Motor</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="Auto-button" style="
+    left: 350px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Auto</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="reset-button" style="
+    left: 450px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">Reset</button>
+            </div>
+
+            <div id="bar-chart" >
+              <button id="turnOff-button" style="
+    left: 550px;
+    /* background-color: red; */
+    top: 62px;
+    position: absolute;
+  ">TurnOff</button>
+            </div>
+
+
+					</div> <!-- /widget-content -->
+
+				</div> <!-- /widget -->
+
+					</div> <!-- /widget-content -->
+
+				</div> <!-- /widget -->
+
+			</div> <!-- /span9 -->
+
+
+		</div> <!-- /row -->
+
+	</div> <!-- /container -->
+
+</div> <!-- /content -->
+
+
+<!--Here is the javascript code to emit events to server  -->
+<script>
+		socket.on('temp', function(data) {
+			document.getElementById("temp").innerHTML=data;
+		});
+		socket.on('light', function(data) {
+			document.getElementById("lightlevel").innerHTML=data;
+		});
+		socket.on('humidity', function(data) {
+			document.getElementById("humidity").innerHTML=data;
+		});
+		socket.on('distance', function(data) {
+			document.getElementById("distance").innerHTML=data;
+		});
+
+		document.getElementById("led").onclick = function() {
+			socket.emit('led', 'led on/off');
+		}
+		document.getElementById("piezo").onclick = function() {
+			socket.emit('piezo', 'piezo on/off');
+		}
+    document.getElementById("motor").onclick = function() {
+			socket.emit('motor', 'motor on/off');
+		}
+    document.getElementById("Auto-button").onclick = function() {
+			socket.emit('Automode', 'Automode on/off');
+		}
+    document.getElementById("reset-button").onclick = function() {
+			socket.emit('Reset', 'reset on/off');
+		}
+    document.getElementById("turnOff-button").onclick = function() {
+			socket.emit('turnOff', 'turn on/off');
+		}
+
+
+
+</script>
+
+
+
+  </body>
+</html>
